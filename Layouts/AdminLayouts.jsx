@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 import { styled } from "@mui/material/styles";
 import {
@@ -19,24 +21,19 @@ import MuiAppBar from "@mui/material/AppBar";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
-import {
-  YouTube,
-  Class,
-  ListAlt,
-  Spellcheck,
-  Mail,
-  Inbox,
-} from "@mui/icons-material";
+import { YouTube, Class, ListAlt, Spellcheck } from "@mui/icons-material";
 
 const drawerWidth = 240;
 const listSideMenu = [
   {
     text: "Videos motivacionales",
     icon: <YouTube />,
+    url: "/admin",
   },
   {
     text: "Categorias de palabras",
     icon: <ListAlt />,
+    url: "/admin/categorias",
   },
   {
     text: "Palabras",
@@ -111,11 +108,18 @@ const Drawer = styled(MuiDrawer, {
     ...closedMixin(theme),
     "& .MuiDrawer-paper": closedMixin(theme),
   }),
+  zIndex: 1000
 }));
 
 function SideMenuAdmin({ handleDrawerClose, open }) {
+  const router = useRouter();
+
+  const navigateTo = (path) => {
+    if (path) router.push(path);
+  };
+
   return (
-    <Drawer variant="permanent" open={open}>
+    <Drawer variant="permanent" open={open} sx={{ backgroundColor: "crimson" }}>
       <DrawerHeader>
         <Box
           component={"div"}
@@ -134,7 +138,12 @@ function SideMenuAdmin({ handleDrawerClose, open }) {
       <Divider />
       <List>
         {listSideMenu.map((item, i) => (
-          <ListItem disablePadding sx={{ display: "block" }} key={i}>
+          <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            key={i}
+            onClick={() => navigateTo(item.url)}
+          >
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -162,7 +171,7 @@ function SideMenuAdmin({ handleDrawerClose, open }) {
   );
 }
 
-function AppBarCustom({ open, handleDrawerOpen }) {
+function AppBarCustom({ title, open, handleDrawerOpen }) {
   return (
     <AppBar position="fixed" open={open}>
       <Toolbar>
@@ -178,15 +187,15 @@ function AppBarCustom({ open, handleDrawerOpen }) {
         >
           <MenuIcon />
         </IconButton>
-        {/* <Typography variant="h6" noWrap component="div">
-          Mini variant drawer
-        </Typography> */}
+        <Typography variant="h6" noWrap component="div">
+          {title}
+        </Typography>
       </Toolbar>
     </AppBar>
   );
 }
 
-export const AdminLayouts = ({ children }) => {
+export const AdminLayouts = ({ titlePage, children }) => {
   const [open, setOpen] = useState(true);
 
   const handleDrawerOpen = () => {
@@ -198,12 +207,19 @@ export const AdminLayouts = ({ children }) => {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <AppBarCustom handleDrawerOpen={handleDrawerOpen} open={open} />
+    <Box sx={{ display: "flex" }} color="primary">
+      <Head>
+        <title>Habla+</title>
+      </Head>
+      <AppBarCustom
+        handleDrawerOpen={handleDrawerOpen}
+        open={open}
+        title={titlePage}
+      />
       <SideMenuAdmin handleDrawerClose={handleDrawerClose} open={open} />
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 2, bgcolor: "#f3f3f3", minHeight: "100vh" }}
+        sx={{ flexGrow: 1, p: 2, minHeight: "100vh" }}
       >
         <DrawerHeader />
         {children}
