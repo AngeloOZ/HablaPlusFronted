@@ -38,6 +38,7 @@ const listSideMenu = [
   {
     text: "Palabras",
     icon: <Class />,
+    url: "/admin/palabras",
   },
   {
     text: "Oraciones",
@@ -108,7 +109,7 @@ const Drawer = styled(MuiDrawer, {
     ...closedMixin(theme),
     "& .MuiDrawer-paper": closedMixin(theme),
   }),
-  zIndex: 1000
+  zIndex: 1000,
 }));
 
 function SideMenuAdmin({ handleDrawerClose, open }) {
@@ -217,10 +218,7 @@ export const AdminLayouts = ({ titlePage, children }) => {
         title={titlePage}
       />
       <SideMenuAdmin handleDrawerClose={handleDrawerClose} open={open} />
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, p: 2, minHeight: "100vh" }}
-      >
+      <Box component="main" sx={{ flexGrow: 1, p: 2, minHeight: "100vh" }}>
         <DrawerHeader />
         {children}
       </Box>

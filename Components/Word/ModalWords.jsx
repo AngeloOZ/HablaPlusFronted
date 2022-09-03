@@ -13,7 +13,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useAddCategory, useUpdateCategory } from "./Hooks";
 
 const style = {
   position: "absolute",
@@ -27,14 +26,14 @@ const style = {
   p: 4,
 };
 
-export const ModalCategories = ({
+export const ModalWords = ({
   open,
   initDataForm,
   setOpen,
   isEdit = false,
   setIsEdit,
 }) => {
-  const title = isEdit ? "Editar categoria" : "Agregar categoria";
+  const title = isEdit ? "Editar palabra" : "Agregar palabra";
   const [editFile, setEditFile] = useState(false);
 
   const {
@@ -66,12 +65,9 @@ export const ModalCategories = ({
     setOpen(false);
   };
 
-  const handleCancel = () => {
-    reset();
-    setEditFile(false);
-    setIsEdit(false);
+  const handleCancel = () =>{
     setOpen(false);
-  };
+  }
 
   return (
     <Modal
