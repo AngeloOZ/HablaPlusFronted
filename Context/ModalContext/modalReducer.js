@@ -5,6 +5,16 @@ export const modalReducer = (state, action) => {
             ...state,
             openModal: action.payload,
          }
+      case 'CHANGE_STATE_EDIT':
+         return {
+            ...state,
+            editModal: action.payload,
+         }
+      case 'UPDATE_CURRENT_DATA':
+         return {
+            ...state,
+            currentData: action.payload,
+         }
       default:
          return state;
    }

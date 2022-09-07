@@ -5,21 +5,26 @@ import {
   Box,
   Button,
   Fade,
+  FormControl,
   FormControlLabel,
+  FormHelperText,
   Grid,
   InputLabel,
+  MenuItem,
   Modal,
+  Select,
   Switch,
   TextField,
   Typography,
 } from "@mui/material";
+import { useAddWord, useUpdateWord } from "./Hooks";
 
 const style = {
   position: "absolute",
-  top: "35%",
+  top: "45%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 430,
+  width: 450,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -32,9 +37,13 @@ export const ModalWords = ({
   setOpen,
   isEdit = false,
   setIsEdit,
+  categories,
 }) => {
   const title = isEdit ? "Editar palabra" : "Agregar palabra";
   const [editFile, setEditFile] = useState(false);
+  const [choseCategory, setChoseCategory] = useState("");
+  const [selectError, setSelectError] = useState(false);
+  const [selectErrorMessage, setSelectErrorMessage] = useState("");
 
   const {
     register,
@@ -43,31 +52,48 @@ export const ModalWords = ({
     setValue,
     formState: { errors },
   } = useForm();
-  
+
   useEffect(() => {
     reset();
     if (initDataForm) {
+      setValue("id_word", initDataForm.id_word);
+      setChoseCategory(initDataForm.id_category);
       setValue("description", initDataForm.description);
       setValue("icon", initDataForm.icon);
-      setValue("id_category", initDataForm.id_category);
     }
   }, [initDataForm]);
 
-  const handleSubmitCategory = (data) => {
-    if (isEdit) {
-      useUpdateCategory(data, handleCancel);
-      setEditFile(false);
-      setIsEdit(false);
-    } else {
-      useAddCategory(data);
+  const handleSubmitWord = (data) => {
+    if (choseCategory.length == 0) {
+      setSelectError(true);
+      setSelectErrorMessage("Debe seleccionar la categoria");
     }
-    reset();
-    setOpen(false);
+    data.id_category = choseCategory;
+    if (isEdit) {
+      useUpdateWord(data, handleCancel);
+      setEditFile(false);
+    } else {
+      useAddWord(data);
+    }
+    handleCancel();
   };
 
-  const handleCancel = () =>{
+  const handleCancel = () => {
+    if (isEdit) {
+      setIsEdit(false);
+      setEditFile(false);
+    }
     setOpen(false);
-  }
+    setSelectError(false);
+    setChoseCategory("");
+    reset();
+  };
+
+  const handleChangeSelect = (event) => {
+    setChoseCategory(event.target.value);
+    setSelectError(false);
+    setSelectErrorMessage("");
+  };
 
   return (
     <Modal
@@ -86,23 +112,25 @@ export const ModalWords = ({
           <Typography variant="h2" textAlign={"center"} mb={3}>
             {title}
           </Typography>
-          <form onSubmit={handleSubmit(handleSubmitCategory)}>
+          <form onSubmit={handleSubmit(handleSubmitWord)} noValidate>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
-                  label="Nombre de la categoria"
+                  label="Nombre de la palabra"
                   fullWidth
                   required
                   {...register("description", {
-                    required: "El nombre de la categoria es requerido",
+                    required: "El nombre de la palabra es requerido",
                     pattern: {
-                      value: /^[A-Za-zñ ,.;áéíóú]+$/i,
+                      value: /^[A-Za-zñ ,.;áéíóú \ *]+$/i,
                       message: "No se permiten número o caracteres especiales ",
                     },
                   })}
                   error={!!errors.description}
-                  helperText={errors.description?.message}
+                  helperText={
+                    !!errors.description ? errors.description?.message : "Los acentos debe estar entre asteriscos(*) Ej: pa*pá*"
+                  }
                 />
               </Grid>
               {isEdit ? (
@@ -128,7 +156,7 @@ export const ModalWords = ({
                         margin="dense"
                         required
                         {...register("iconFile", {
-                          required: "La imagén de la categoria es necesaria",
+                          required: "La imagén de la palabra es necesaria",
                         })}
                         error={!!errors.iconFile}
                         helperText={errors.iconFile?.message}
@@ -159,13 +187,39 @@ export const ModalWords = ({
                     margin="dense"
                     required
                     {...register("iconFile", {
-                      required: "La imagén de la categoria es necesaria",
+                      required: "La imagén de la palabra es necesaria",
                     })}
                     error={!!errors.iconFile}
                     helperText={errors.iconFile?.message}
                   />
                 </Grid>
               )}
+              <Grid item xs={12} mt={1}>
+                <FormControl fullWidth required error={selectError}>
+                  <InputLabel id="demo-simple-select-label">
+                    Categoria
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Categoria"
+                    value={choseCategory}
+                    onChange={handleChangeSelect}
+                  >
+                    {categories.map((category) => (
+                      <MenuItem
+                        value={category.id_category}
+                        key={category.id_category}
+                      >
+                        {category.description}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  {selectError && (
+                    <FormHelperText>{selectErrorMessage}</FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
               <Grid item xs={12} mt={1}>
                 <Button type="submit" size="medium" fullWidth>
                   Guardar

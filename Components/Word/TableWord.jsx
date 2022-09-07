@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
   Box,
   IconButton,
@@ -12,9 +13,32 @@ import {
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import { useGetWords } from "./Hooks/useGetWords";
+import { ModalContext } from "../../Context";
+import { useDeleteWord } from "./Hooks/useDeleteWord";
+import { SweetAlert } from "../../helpers";
 
 export const TableWord = ({ category }) => {
+  const { updateCurrentData, toogleModalState, toogleIsEdit } =
+    useContext(ModalContext);
   const { words, isLoading } = useGetWords(category.id_category);
+
+  const handleEditWord = (word) => {
+    toogleIsEdit(true);
+    toogleModalState(true);
+    updateCurrentData(word);
+  };
+
+  const handleDeleteWord = async (word) => {
+    const result = await SweetAlert.deleteConfirm({
+      title: `Está seguro de eliminar la palabra: ${word.description}`,
+      text: "Una vez realizada Ud. no podrá revertir está acción",
+    });
+
+    if (result.isConfirmed) {
+      useDeleteWord(word);
+    }
+  };
+
   if (isLoading) {
     return (
       <Box component={"div"}>
@@ -48,7 +72,7 @@ export const TableWord = ({ category }) => {
             >
               <TableCell>
                 <Typography textTransform={"capitalize"}>
-                    {word.description}
+                  {word.description}
                 </Typography>
               </TableCell>
               <TableCell>
@@ -57,14 +81,22 @@ export const TableWord = ({ category }) => {
                 </Typography>
               </TableCell>
               <TableCell>
-                <Box component={"img"} src={word.icon} alt={word.description} width={120}  />
+                <Box
+                  component={"img"}
+                  src={word.icon}
+                  alt={word.description}
+                  width={120}
+                />
               </TableCell>
               <TableCell>
                 <Box component="div" display={"flex"}>
-                  <IconButton aria-label="edit" size="large">
+                  <IconButton size="large" onClick={() => handleEditWord(word)}>
                     <Edit />
                   </IconButton>
-                  <IconButton aria-label="delete" size="large">
+                  <IconButton
+                    size="large"
+                    onClick={() => handleDeleteWord(word)}
+                  >
                     <Delete />
                   </IconButton>
                 </Box>

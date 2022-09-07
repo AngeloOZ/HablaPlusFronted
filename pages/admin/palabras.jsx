@@ -1,13 +1,13 @@
-import axios from "axios";
-import { Box, Button } from "@mui/material";
-import { AdminLayouts } from "../../Layouts";
-import { AccordionWords } from "../../Components";
 import { useContext } from "react";
+import axios from "axios";
+import { Box, Button, Typography } from "@mui/material";
+import { AdminLayouts } from "../../Layouts";
+import { AccordionWords, ModalWords } from "../../Components";
 import { ModalContext } from "../../Context";
-import { ModalWords } from "../../Components/Word";
 
 const PagePalabras = ({ categories }) => {
-  const { toogleModalState, openModal } = useContext(ModalContext);
+  const { toogleModalState, openModal, editModal, toogleIsEdit, currentData } =
+    useContext(ModalContext);
   return (
     <AdminLayouts titlePage={"Palabras"}>
       <Box
@@ -18,12 +18,33 @@ const PagePalabras = ({ categories }) => {
       >
         <Button onClick={() => toogleModalState(true)}>Agregar Palabra</Button>
       </Box>
-      <Box component={"div"} mt={2}>
-        {categories.map((category) => (
-          <AccordionWords key={category.id_category} category={category} />
-        ))}
-      </Box>
-      <ModalWords open={openModal} setOpen={toogleModalState} />
+      {categories.length == 0 ? (
+        <Box component={"div"} mt={3}>
+          <Typography variant="h1" textAlign={"center"}>No hay categorias registradas</Typography>
+        </Box>
+      ) : (
+        <Box component={"div"} mt={2}>
+          {categories.map((category) => (
+            <AccordionWords key={category.id_category} category={category} />
+          ))}
+        </Box>
+      )}
+      {editModal ? (
+        <ModalWords
+          open={openModal}
+          setOpen={toogleModalState}
+          categories={categories}
+          isEdit={editModal}
+          setIsEdit={toogleIsEdit}
+          initDataForm={currentData}
+        />
+      ) : (
+        <ModalWords
+          open={openModal}
+          setOpen={toogleModalState}
+          categories={categories}
+        />
+      )}
     </AdminLayouts>
   );
 };
@@ -35,14 +56,18 @@ export const getStaticProps = async (ctx) => {
   try {
     const { data } = await axios.get("/category");
     categories = data.data;
+    return {
+      props: {
+        categories,
+      },
+      revalidate: 60,
+    };
   } catch (err) {
     console.log(err);
+    return {
+      props: {
+        categories: [],
+      },
+    };
   }
-
-  return {
-    props: {
-      categories,
-    },
-    revalidate: 60,
-  };
 };
