@@ -1,21 +1,4 @@
-.mainly {
-   height: 100vh;
-   width: 100%;
-   overflow: hidden;
-   background-color: #fff;
-   background: #fff, url('');
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-
-.footer{
-   height: 200px;
-   width: 100%;
-   // background-color: red;
-   background-image: url('../public/img/fondo1.png');
-}
-
+@use "scss/variables" as *;
 .animate {
    position: absolute;
    width: 500px;

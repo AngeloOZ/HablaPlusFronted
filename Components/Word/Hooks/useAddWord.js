@@ -28,6 +28,18 @@ export const useAddWord = async (word) => {
       throw error;
    }
 
+   // try {
+   //    const formData = new FormData();
+   //    formData.append('file', blobAudio);
+   //    axios.post('/file/audio', formData, {
+   //       headers: {
+   //          "Content-Type": "multipart/form-data",
+   //       }
+   //    }).then(res => console.log(res?.data)).catch(console.error);
+   // } catch (error) {
+      
+   // }
+
    try {
       await axios.post("word", bodyData);
       mutate(`/category/${word.id_category}/words`);

@@ -1,0 +1,129 @@
+@use "scss/variables" as *;
+
+.circleAvatar {
+  display: inline-block;
+  position: relative;
+  background-color: $color-rosado-2;
+  border-radius: 100%;
+  border: 6px solid $color-rosado-1;
+  overflow: hidden;
+  
+  .circleAvatarImagen {
+    width: 110%;
+    position: absolute;
+    object-fit: cover;
+    image-rendering: auto;
+  }
+  
+  &.small {
+    height: 150px;
+    width: 150px;
+    
+    .circleAvatarImagen {
+      top: -2px;
+      left: -5px;
+    }
+  }
+  
+  &.large {
+    border: 12px solid $color-rosado-1;
+    height: 420px;
+    width: 420px;
+    .circleAvatarImagen {
+      width: 85%;
+      top: -2px;
+      left: 30px;
+    }
+  }
+}
+
+.avatar {
+  display: inline-block;
+  background-color: $color-rosado-2;
+  border: 10px solid $color-rosado-1;
+  border-radius: 40px;
+  color: #000;
+  height: 350px;
+  margin: 1px;
+  overflow: hidden;
+  padding: 18px;
+  width: 250px;
+
+  .avatarImage {
+    width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+.button {
+  min-width: 120px;
+  padding: 10px 30px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  font-family: $font-gotham;
+  font-size: 16px;
+  outline: none;
+  background-image: linear-gradient(
+    to top,
+    $color-violeta-1 0%,
+    $color-violeta-2 100%
+  );
+  box-shadow: 3px 5px 3px -1px rgba(0, 0, 0, 0.6);
+  &.fullwidth {
+    width: 100%;
+  }
+
+  &:active {
+    transform: translateY(1px);
+    box-shadow: 3px 3px 3px -1px rgba(0, 0, 0, 0.7);
+  }
+}
+
+.pictograma {
+  display: inline-flex;
+  background-color: $color-pictograma1-2;
+  border: 10px solid $color-pictograma1-1;
+  border-radius: 40px;
+  color: #000;
+  height: 350px;
+  margin: 1px;
+  overflow: hidden;
+  padding: 15px;
+  width: 250px;
+  justify-content: center;
+  align-items: center;
+  &.primary {
+    background-color: $color-pictograma1-2;
+    border: 10px solid $color-pictograma1-1;
+  }
+  &.secondary {
+    background-color: $color-pictograma2-2;
+    border: 10px solid $color-pictograma2-1;
+  }
+  .pictogramaImage {
+    width: 85%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.input {
+  .colorViolet {
+    font-family: $font-gotham;
+    color: $color-violeta-1 !important;
+  }
+  .inputBase {
+    font-family: $font-gotham;
+    color: $color-violeta-1;
+    border-radius: 25px;
+    margin-top: 10px;
+    padding-left: 10px;
+    border: 1px solid $color-violeta-1;
+    &.error {
+      border: 1px solid #dc3545;
+    }
+  }
+}

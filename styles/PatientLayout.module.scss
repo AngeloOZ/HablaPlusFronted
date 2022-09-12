@@ -1,0 +1,106 @@
+@use "scss/variables" as *;
+
+.contenedorPadre {
+  position: relative;
+  background: #fff;
+  height: 100vh;
+  width: 100%;
+  color: #000;
+  overflow: hidden;
+
+  .currentUser {
+    display: inline-flex;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+  }
+
+  .btnConfig {
+    width: 130px;
+    border-radius: 100%;
+  }
+
+  .logoHeader {
+    width: 200px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    img {
+      width: 100%;
+    }
+  }
+
+  .main {
+    width: 100%;
+    position: absolute;
+    background: transparent;
+    z-index: 100;
+    * {
+      background: transparent;
+    }
+  }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 315px;
+    width: 100%;
+    background-position: bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+}
+@media screen and (max-width: 992px) {
+  .contenedorPadre{
+    .btnConfig{
+      width: 110px;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .contenedorPadre {
+    .currentUser {
+      top: 10px;
+      left: 5px;
+    }
+    .logoHeader {
+      width: 180px;
+      top: 15px;
+      right: 5px;
+    }
+    .btnConfig {
+      width: 90px;
+    }
+  }
+}
+@media screen and (max-width: 576px) {
+  .contenedorPadre {
+    .currentUser {
+      top: 10px;
+      left: 5px;
+    }
+    .logoHeader {
+      width: 170px;
+      top: 15px;
+      right: 5px;
+    }
+    .btnConfig {
+      width: 80px;
+    }
+  }
+}
+@media screen and (max-width: 380px) {
+  .contenedorPadre {
+    .logoHeader {
+      width: 150px;
+    }
+    .btnConfig {
+      width: 60px;
+      padding: 2px;
+    }
+  }
+}
