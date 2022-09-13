@@ -18,13 +18,14 @@ import {
   Typography,
 } from "@mui/material";
 import { useAddWord, useUpdateWord } from "./Hooks";
+import { ContainerInputRecorder } from "./";
 
 const style = {
   position: "absolute",
   top: "45%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 450,
+  width: 500,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -41,9 +42,12 @@ export const ModalWords = ({
 }) => {
   const title = isEdit ? "Editar palabra" : "Agregar palabra";
   const [editFile, setEditFile] = useState(false);
+  const [editAudio, setEditAudio] = useState(false);
   const [choseCategory, setChoseCategory] = useState("");
   const [selectError, setSelectError] = useState(false);
   const [selectErrorMessage, setSelectErrorMessage] = useState("");
+  const [audioWordFile, setAudioWordFile] = useState(undefined);
+  const [errorAudioFile, setErrorAudioFile] = useState(false);
 
   const {
     register,
@@ -60,6 +64,7 @@ export const ModalWords = ({
       setChoseCategory(initDataForm.id_category);
       setValue("description", initDataForm.description);
       setValue("icon", initDataForm.icon);
+      setValue("audio", initDataForm.audio);
     }
   }, [initDataForm]);
 
@@ -67,12 +72,24 @@ export const ModalWords = ({
     if (choseCategory.length == 0) {
       setSelectError(true);
       setSelectErrorMessage("Debe seleccionar la categoria");
+      return;
     }
     data.id_category = choseCategory;
+
     if (isEdit) {
+      if (editAudio && !audioWordFile) {
+        setErrorAudioFile(true);
+        return;
+      } else if (editAudio && audioWordFile) {
+        data.audioFile = audioWordFile;
+      }
       useUpdateWord(data, handleCancel);
-      setEditFile(false);
     } else {
+      if (!audioWordFile) {
+        setErrorAudioFile(true);
+        return;
+      }
+      data.audioFile = audioWordFile;
       useAddWord(data);
     }
     handleCancel();
@@ -82,10 +99,13 @@ export const ModalWords = ({
     if (isEdit) {
       setIsEdit(false);
       setEditFile(false);
+      setEditAudio(false);
     }
-    setOpen(false);
+    setAudioWordFile(undefined);
+    setErrorAudioFile(false);
     setSelectError(false);
     setChoseCategory("");
+    setOpen(false);
     reset();
   };
 
@@ -129,7 +149,9 @@ export const ModalWords = ({
                   })}
                   error={!!errors.description}
                   helperText={
-                    !!errors.description ? errors.description?.message : "Los acentos debe estar entre asteriscos(*) Ej: pa*pá*"
+                    !!errors.description
+                      ? errors.description?.message
+                      : "Los acentos debe estar entre asteriscos(*) Ej: pa*pá*"
                   }
                 />
               </Grid>
@@ -138,8 +160,50 @@ export const ModalWords = ({
                   <Box component={"div"}>
                     <FormControlLabel
                       sx={{ marginTop: 1 }}
+                      control={<Switch color="primary" checked={editAudio} />}
+                      label="Grabar nuevo audio"
+                      labelPlacement="start"
+                      onChange={() => {
+                        setEditAudio(!editAudio);
+                      }}
+                    />
+                  </Box>
+                  {editAudio ? (
+                    <ContainerInputRecorder
+                      isError={errorAudioFile}
+                      setIsError={setErrorAudioFile}
+                      setFile={setAudioWordFile}
+                    />
+                  ) : (
+                    <Grid item xs={12}>
+                      <TextField
+                        label="Url del audio"
+                        variant="outlined"
+                        required
+                        fullWidth
+                        {...register("audio", {
+                          required: "La url del audio es necesario",
+                        })}
+                        error={!!errors.icon}
+                        helperText={errors.icon?.message}
+                      />
+                    </Grid>
+                  )}
+                </>
+              ) : (
+                <ContainerInputRecorder
+                  isError={errorAudioFile}
+                  setIsError={setErrorAudioFile}
+                  setFile={setAudioWordFile}
+                />
+              )}
+              {isEdit ? (
+                <>
+                  <Box component={"div"}>
+                    <FormControlLabel
+                      sx={{ marginTop: 1 }}
                       control={<Switch color="primary" />}
-                      label="Subir archivo"
+                      label="Subir nueva foto"
                       labelPlacement="start"
                       onChange={() => {
                         setEditFile(!editFile);

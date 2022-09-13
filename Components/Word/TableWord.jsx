@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import {
   Box,
   IconButton,
@@ -16,11 +16,17 @@ import { useGetWords } from "./Hooks/useGetWords";
 import { ModalContext } from "../../Context";
 import { useDeleteWord } from "./Hooks/useDeleteWord";
 import { SweetAlert } from "../../helpers";
+import { useRef } from "react";
+import { useEffect } from "react";
+import ButtonsPlayAudio from "./ButtonsPlayAudio";
 
 export const TableWord = ({ category }) => {
   const { updateCurrentData, toogleModalState, toogleIsEdit } =
     useContext(ModalContext);
   const { words, isLoading } = useGetWords(category.id_category);
+
+  const [currentUrlAudio, setCurrentUrlAudio] = useState("");
+  const reproductor = useRef(null);
 
   const handleEditWord = (word) => {
     toogleIsEdit(true);
@@ -55,12 +61,18 @@ export const TableWord = ({ category }) => {
   }
   return (
     <TableContainer component={Paper}>
+      <audio
+        ref={reproductor}
+        src={currentUrlAudio}
+        style={{ display: "none" }}
+      ></audio>
       <Table sx={{ minWidth: 400 }}>
         <TableHead>
           <TableRow>
             <TableCell>Palabra</TableCell>
             <TableCell>Categoria</TableCell>
             <TableCell>Imagén</TableCell>
+            <TableCell>Audio</TableCell>
             <TableCell>Acciones</TableCell>
           </TableRow>
         </TableHead>
@@ -72,7 +84,7 @@ export const TableWord = ({ category }) => {
             >
               <TableCell>
                 <Typography textTransform={"capitalize"}>
-                  {word.description}
+                  {word.description.replaceAll("*", "")}
                 </Typography>
               </TableCell>
               <TableCell>
@@ -86,6 +98,13 @@ export const TableWord = ({ category }) => {
                   src={word.icon}
                   alt={word.description}
                   width={120}
+                />
+              </TableCell>
+              <TableCell>
+                <ButtonsPlayAudio
+                  ref={reproductor}
+                  url={word.audio}
+                  setUrl={setCurrentUrlAudio}
                 />
               </TableCell>
               <TableCell>

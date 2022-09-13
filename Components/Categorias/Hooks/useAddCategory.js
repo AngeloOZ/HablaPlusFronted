@@ -12,12 +12,12 @@ export const useAddCategory = async (category) => {
    };
 
    try {
-      const { data: url } = await axios.post("/file/image/category", formData, {
+      const { data } = await axios.post("/file/image/category", formData, {
          headers: {
             "Content-Type": "multipart/form-data",
          },
       });
-      bodyData.icon = url;
+      bodyData.icon = data.url;
    } catch (error) {
       console.error(data);
       SweetAlert.error({

@@ -60,6 +60,7 @@ export const useRecorder = () => {
 
    const startRecording = () => {
       setIsRecording(true);
+      setAudioURL("");
       fragmentosAudio = [];
    };
 
