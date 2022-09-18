@@ -1,0 +1,36 @@
+@use "scss/variables" as *;
+
+.contenedorCategoriasPalabras {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .contenedorCategorias {
+    width: 80%;
+    height: 400px;
+    display: flex;
+   //  flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .buttonCategorias {
+      border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      transition: 0.3s ease transform;
+      height: 140px;
+      width: 140px;
+
+      &:nth-child(even){
+         align-self: flex-start;
+      }
+
+      .buttonCategoriasImage{
+         width: 100%;
+      }
+    }
+  }
+}

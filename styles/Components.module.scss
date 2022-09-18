@@ -13,6 +13,7 @@
     position: absolute;
     object-fit: cover;
     image-rendering: auto;
+    user-select: none;
   }
   
   &.small {
@@ -26,9 +27,9 @@
   }
   
   &.large {
-    border: 12px solid $color-rosado-1;
-    height: 420px;
-    width: 420px;
+    border: 20px solid $color-rosado-1;
+    height: 440px;
+    width: 440px;
     .circleAvatarImagen {
       width: 85%;
       top: -2px;
@@ -40,13 +41,12 @@
 .avatar {
   display: inline-block;
   background-color: $color-rosado-2;
-  border: 10px solid $color-rosado-1;
+  border: 14px solid $color-rosado-1;
   border-radius: 40px;
   color: #000;
   height: 350px;
-  margin: 1px;
   overflow: hidden;
-  padding: 18px;
+  padding: 14px;
   width: 250px;
 
   .avatarImage {
@@ -54,24 +54,27 @@
     max-height: 100%;
     object-fit: cover;
     object-position: center;
+    user-select: none;
   }
 }
 
 .button {
   min-width: 120px;
-  padding: 10px 30px;
+  padding: 15px 30px;
   border-radius: 25px;
   border: none;
   cursor: pointer;
   font-family: $font-gotham;
   font-size: 16px;
   outline: none;
-  background-image: linear-gradient(
+  background: linear-gradient(
     to top,
     $color-violeta-1 0%,
     $color-violeta-2 100%
   );
   box-shadow: 3px 5px 3px -1px rgba(0, 0, 0, 0.6);
+  transition: 0.4s ease all;
+
   &.fullwidth {
     width: 100%;
   }
@@ -79,6 +82,11 @@
   &:active {
     transform: translateY(1px);
     box-shadow: 3px 3px 3px -1px rgba(0, 0, 0, 0.7);
+  }
+
+  &.disabled{
+    background: rgb(111, 111, 111);
+    box-shadow: none;
   }
 }
 

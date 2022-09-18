@@ -1,0 +1,101 @@
+@use "scss/variables" as *;
+
+.contenedorPadre {
+  position: relative;
+  background: #fff;
+  height: 100vh;
+  width: 100%;
+  color: #000;
+  overflow: hidden;
+
+  .logoHeader {
+    width: 200px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    img {
+      width: 100%;
+    }
+  }
+
+  .main {
+    position: absolute;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 100;
+    .logoCenter {
+      width: 450px;
+      &.init {
+        transform: scale(0);
+        animation: zoom 1.2s ease-in both 0.2s;
+      }
+      &.startAnimation {
+        transform: translate(0px, 0px);
+        animation: startAnimationA 2.5s ease both;
+      }
+    }
+    .btnStart {
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      bottom: 70px;
+      width: 100px;
+      border-radius: 20px;
+      opacity: 1;
+      transition: opacity 0.8s ease;
+      &.hidden{
+         opacity: 0;
+      }
+      img {
+        width: 100%;
+      }
+    }
+  }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 315px;
+    width: 100%;
+    background-position: bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+}
+
+@keyframes zoom {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes startAnimationA {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  100% {
+    width: 209px;
+    transform: translate(564px, -271px);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+}
+@media screen and (max-width: 992px) {
+}
+@media screen and (max-width: 768px) {
+}
+@media screen and (max-width: 576px) {
+}
+@media screen and (max-width: 380px) {
+}

@@ -17,8 +17,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useAddWord, useUpdateWord } from "./Hooks";
+import { useWords } from "./Hooks";
 import { ContainerInputRecorder } from "./";
+import { SecurityUpdateWarningOutlined } from "@mui/icons-material";
 
 const style = {
   position: "absolute",
@@ -40,6 +41,7 @@ export const ModalWords = ({
   setIsEdit,
   categories,
 }) => {
+  const { addWord, updateWord } = useWords();
   const title = isEdit ? "Editar palabra" : "Agregar palabra";
   const [editFile, setEditFile] = useState(false);
   const [editAudio, setEditAudio] = useState(false);
@@ -83,14 +85,14 @@ export const ModalWords = ({
       } else if (editAudio && audioWordFile) {
         data.audioFile = audioWordFile;
       }
-      useUpdateWord(data, handleCancel);
+      updateWord(data, handleCancel);
     } else {
       if (!audioWordFile) {
         setErrorAudioFile(true);
         return;
       }
       data.audioFile = audioWordFile;
-      useAddWord(data);
+      addWord(data);
     }
     handleCancel();
   };

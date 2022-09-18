@@ -5,19 +5,12 @@ import {
   Box,
   Button,
   Fade,
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
   Grid,
-  InputLabel,
-  MenuItem,
   Modal,
-  Select,
-  Switch,
   TextField,
   Typography,
 } from "@mui/material";
-// import { useAddWord, useUpdateWord } from "./Hooks";
+import { useVideos } from "./Hooks";
 
 const style = {
   position: "absolute",
@@ -37,8 +30,8 @@ export const ModalVideos = ({
   setOpen,
   isEdit = false,
   setIsEdit,
-  categories,
 }) => {
+  const { addVideo, updateVideo } = useVideos();
   const title = isEdit ? "Editar video" : "Agregar video";
 
   const {
@@ -52,23 +45,25 @@ export const ModalVideos = ({
   useEffect(() => {
     reset();
     if (initDataForm) {
-      setValue("id_word", initDataForm.id_word);
+      setValue("id_video", initDataForm.id_video);
       setValue("description", initDataForm.description);
-      setValue("icon", initDataForm.icon);
+      setValue("link", initDataForm.link);
     }
   }, [initDataForm]);
 
   const handleSubmitWord = (data) => {
-    console.log(data);
     if (isEdit) {
-      // useUpdateWord(data, handleCancel);
+      updateVideo(data, handleCancel);
     } else {
-      // useAddWord(data);
+      addVideo(data);
     }
-    //  handleCancel();
+    handleCancel();
   };
 
   const handleCancel = () => {
+    if (isEdit) {
+      setIsEdit(false);
+    }
     setOpen(false);
     reset();
   };
@@ -102,10 +97,6 @@ export const ModalVideos = ({
                   required
                   {...register("description", {
                     required: "La descripción del video es requerido",
-                    pattern: {
-                      value: /^[A-Za-zñÑ ,.;áéíóú \ ]+$/i,
-                      message: "No se permiten número o caracteres especiales ",
-                    },
                   })}
                   error={!!errors.description}
                   helperText={errors.description?.message}

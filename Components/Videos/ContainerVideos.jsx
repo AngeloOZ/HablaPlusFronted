@@ -1,33 +1,12 @@
-import {
-  Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardMedia,
-  Grid,
-} from "@mui/material";
+import { Grid } from "@mui/material";
+import { ItemVideo } from "./ItemVideo";
 
-export const ContainerVideos = () => {
+export const ContainerVideos = ({ videos }) => {
   return (
     <Grid container spacing={2}>
-      <Grid item xs={4}>
-        <Card>
-          <CardActionArea>
-            <CardMedia
-              component={"iframe"}
-              height="240"
-              image="https://www.youtube.com/embed/dIRi4AqntSc?controls=0"
-              alt="green iguana"
-              
-            />
-          </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              Share
-            </Button>
-          </CardActions>
-        </Card>
-      </Grid>
+      {videos?.map((video) => (
+        <ItemVideo key={video.id_unique} video={video} />
+      ))}
     </Grid>
   );
 };

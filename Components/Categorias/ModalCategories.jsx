@@ -13,7 +13,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useAddCategory, useUpdateCategory } from "./Hooks";
+import { useCategories } from "./Hooks";
 
 const style = {
   position: "absolute",
@@ -34,6 +34,7 @@ export const ModalCategories = ({
   isEdit = false,
   setIsEdit,
 }) => {
+  const { addCategory, updateCategory } = useCategories();
   const title = isEdit ? "Editar categoria" : "Agregar categoria";
   const [editFile, setEditFile] = useState(false);
 
@@ -44,7 +45,7 @@ export const ModalCategories = ({
     setValue,
     formState: { errors },
   } = useForm();
-  
+
   useEffect(() => {
     reset();
     if (initDataForm) {
@@ -52,15 +53,15 @@ export const ModalCategories = ({
       setValue("icon", initDataForm.icon);
       setValue("id_category", initDataForm.id_category);
     }
-  }, [initDataForm]);
+  }, [initDataForm, setValue, reset]);
 
   const handleSubmitCategory = (data) => {
     if (isEdit) {
-      useUpdateCategory(data, handleCancel);
+      updateCategory(data, handleCancel);
       setEditFile(false);
       setIsEdit(false);
     } else {
-      useAddCategory(data);
+      addCategory(data);
     }
     reset();
     setOpen(false);

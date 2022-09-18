@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import {
   Box,
   IconButton,
@@ -12,18 +12,19 @@ import {
   Typography,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
-import { useGetWords } from "./Hooks/useGetWords";
+
 import { ModalContext } from "../../Context";
-import { useDeleteWord } from "./Hooks/useDeleteWord";
 import { SweetAlert } from "../../helpers";
-import { useRef } from "react";
-import { useEffect } from "react";
 import ButtonsPlayAudio from "./ButtonsPlayAudio";
+
+import { useWords } from "./Hooks/useWords";
+import { useGetWords } from "./Hooks/useGetWords";
 
 export const TableWord = ({ category }) => {
   const { updateCurrentData, toogleModalState, toogleIsEdit } =
     useContext(ModalContext);
   const { words, isLoading } = useGetWords(category.id_category);
+  const { deleteWord } = useWords();
 
   const [currentUrlAudio, setCurrentUrlAudio] = useState("");
   const reproductor = useRef(null);
@@ -41,7 +42,7 @@ export const TableWord = ({ category }) => {
     });
 
     if (result.isConfirmed) {
-      useDeleteWord(word);
+      deleteWord(word);
     }
   };
 

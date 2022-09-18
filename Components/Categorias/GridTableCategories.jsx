@@ -11,11 +11,12 @@ import {
 
 import { ModalCategories } from "./ModalCategories";
 import { SweetAlert } from "../../helpers";
-import { useDeleteCategory } from "./Hooks";
+import { useCategories } from "./Hooks";
 
 export const GridTableCategories = ({ categories, setOpen, open }) => {
   const [isEditCategory, setIsEditCategory] = useState(false);
   const [currentCategory, setCurrentCategory] = useState({});
+  const { deleteCategories } = useCategories();
 
   const handleInitEdit = (category) => {
     setCurrentCategory(category);
@@ -30,7 +31,7 @@ export const GridTableCategories = ({ categories, setOpen, open }) => {
     });
 
     if (result.isConfirmed) {
-      useDeleteCategory(category.id_category);
+      deleteCategories(category.id_category);
     }
   };
 
