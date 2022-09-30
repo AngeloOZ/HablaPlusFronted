@@ -62,8 +62,9 @@ export const getServerSideProps = async (ctx) => {
     };
   } catch (err) {
     return {
-      props: {
-        categories: [],
+      redirect: {
+        destination: "/paciente",
+        permanent: false,
       },
     };
   }
