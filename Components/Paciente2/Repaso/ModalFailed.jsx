@@ -54,7 +54,7 @@ export const ModalFailed = ({ title = "Oops...", textBody = "Lo siento no has ac
               <Image src={gif} />
             </Box>
             <Box className={css.contenedorButton}>
-              <ButtonPatient onClickC={handleCloseModal}>
+              <ButtonPatient onClickC={handleCloseModal} className={css.buttonTryAgain}>
                 Volver a intentarlo
               </ButtonPatient>
             </Box>

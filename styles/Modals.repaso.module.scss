@@ -39,6 +39,12 @@
     text-align: center;
     margin-top: 20px;
     color: #fff;
+
+    .buttonNext{
+      min-width: 120px;
+      padding: 15px 30px;
+      border-radius: 25px;
+    }
   }
 }
 
@@ -83,5 +89,10 @@
     text-align: center;
     margin-top: 20px;
     color: #fff;
+    .buttonTryAgain{
+      min-width: 120px;
+      padding: 15px 30px;
+      border-radius: 25px;
+    }
   }
 }

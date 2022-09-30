@@ -47,7 +47,7 @@ export const ModalSuccess = ({ textButton, handleClickNext }) => {
               <Image src={gif} />
             </Box>
             <Box className={css.contenedorButton}>
-              <ButtonPatient onClickC={handleClickNext}>
+              <ButtonPatient onClickC={handleClickNext} className={css.buttonNext}>
                 {textButton}
               </ButtonPatient>
             </Box>
