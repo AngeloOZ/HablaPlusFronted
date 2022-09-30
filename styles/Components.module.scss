@@ -7,6 +7,10 @@
   border-radius: 100%;
   border: 6px solid $color-rosado-1;
   overflow: hidden;
+
+  &.hover{
+    cursor: pointer;
+  }
   
   .circleAvatarImagen {
     width: 110%;
@@ -17,8 +21,8 @@
   }
   
   &.small {
-    height: 150px;
-    width: 150px;
+    height: 135px;
+    width: 135px;
     
     .circleAvatarImagen {
       top: -2px;
@@ -73,7 +77,7 @@
     $color-violeta-2 100%
   );
   box-shadow: 3px 5px 3px -1px rgba(0, 0, 0, 0.6);
-  transition: 0.4s ease all;
+  transition: 0.2s ease all;
 
   &.fullwidth {
     width: 100%;
@@ -92,27 +96,27 @@
 
 .pictograma {
   display: inline-flex;
+  justify-content: center;
+  align-items: center;
   background-color: $color-pictograma1-2;
-  border: 10px solid $color-pictograma1-1;
   border-radius: 40px;
+  border: 17px solid $color-pictograma1-1;
   color: #000;
-  height: 350px;
+  height: 400px;
   margin: 1px;
   overflow: hidden;
   padding: 15px;
-  width: 250px;
-  justify-content: center;
-  align-items: center;
+  width: 280px;
   &.primary {
     background-color: $color-pictograma1-2;
-    border: 10px solid $color-pictograma1-1;
+    border: 17px solid $color-pictograma1-1;
   }
   &.secondary {
     background-color: $color-pictograma2-2;
-    border: 10px solid $color-pictograma2-1;
+    border: 17px solid $color-pictograma2-1;
   }
   .pictogramaImage {
-    width: 85%;
+    width: 90%;
     height: 100%;
     object-fit: cover;
   }

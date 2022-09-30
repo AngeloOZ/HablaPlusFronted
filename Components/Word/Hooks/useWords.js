@@ -28,6 +28,7 @@ export const useWords = () => {
             text: "Hubo un error al cargar la imagén, intentelo de nuevo"
          })
          throw error;
+         return;
       }
 
       try {
@@ -46,6 +47,7 @@ export const useWords = () => {
             text: "Hubo un error al cargar el audio, intentelo de nuevo"
          })
          throw error;
+         return;
       }
 
       try {
@@ -79,7 +81,7 @@ export const useWords = () => {
          formData.append("file", word.iconFile[0]);
 
          try {
-            const { data } = await axios.post("/file/image/word", formData, {
+            const { data } = await axios.post(`/file/image/word/${btoa(bodyData.icon)}`, formData, {
                headers: {
                   "Content-Type": "multipart/form-data",
                },
@@ -87,11 +89,12 @@ export const useWords = () => {
             bodyData.icon = data.url;
          } catch (error) {
             resetForm();
-            console.error(data);
+            console.error(error);
             SweetAlert.error({
                title: "Oops...",
                text: "Hubo un error al cargar la imagén, intentelo de nuevo"
             })
+            return;
          }
       }
 
@@ -99,7 +102,7 @@ export const useWords = () => {
          try {
             const formData = new FormData();
             formData.append('file', word.audioFile);
-            const { data } = await axios.post('/file/audio', formData, {
+            const { data } = await axios.post(`/file/audio/${btoa(bodyData.audio)}`, formData, {
                headers: {
                   "Content-Type": "multipart/form-data",
                }
@@ -112,6 +115,7 @@ export const useWords = () => {
                title: "Oops...",
                text: "Hubo un error al cargar el audio, intentelo de nuevo"
             })
+            return;
          }
       }
 

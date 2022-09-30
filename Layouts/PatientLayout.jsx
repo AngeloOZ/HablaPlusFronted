@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Box, ButtonBase } from "@mui/material";
 import { CircleAvatar } from "../Components";
 
-import configBtn from "../public/img/configBtn.png";
+import configBtn from "../public/img/botones/configBtn.png";
 import css from "../styles/PatientLayout.module.scss";
 
 export const PatientLayout = ({
@@ -12,7 +12,9 @@ export const PatientLayout = ({
   currentUser,
   configButton,
   children,
-  url = "http://localhost:3000/img/fondo1.png",
+  disableUrlLogo = false,
+  urlToProfile = "/paciente",
+  urlBackground = "fondo1.png",
 }) => {
   return (
     <>
@@ -22,20 +24,21 @@ export const PatientLayout = ({
       <div className={css.contenedorPadre}>
         <Box component={"div"} className={css.currentUser}>
           {currentUser ? (
-            <Link href="/paciente" passHref>
-              <CircleAvatar src="http://localhost:3000/img/avatar1.png" />
-            </Link>
+            <CircleAvatar
+              srcImage={"http://localhost:3000/img/avatar1.png"}
+              hrefTo={urlToProfile}
+            />
           ) : (
             <ButtonBase href="#" className={css.btnConfig}>
               <Image src={configBtn} />
             </ButtonBase>
           )}
         </Box>
-        <Link href="/paciente" passHref>
+        <Link href={disableUrlLogo ? "#" : "/paciente"} passHref>
           <ButtonBase className={css.logoHeader}>
             <Box
               component={"img"}
-              src="http://localhost:3000/img/logo-header.png"
+              src={`${process.env.NEXT_PUBLIC_URL}img/logo-header.png`}
             />
           </ButtonBase>
         </Link>
@@ -51,7 +54,7 @@ export const PatientLayout = ({
         <footer
           className={css.footer}
           style={{
-            backgroundImage: `url(${url})`,
+            backgroundImage: `url(${process.env.NEXT_PUBLIC_URL}img/fondos/${urlBackground})`,
           }}
         ></footer>
       </div>

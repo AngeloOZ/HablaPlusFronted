@@ -20,7 +20,9 @@ const PagePalabras = ({ categories }) => {
       </Box>
       {categories.length == 0 ? (
         <Box component={"div"} mt={3}>
-          <Typography variant="h1" textAlign={"center"}>No hay categorias registradas</Typography>
+          <Typography variant="h1" textAlign={"center"}>
+            No hay categorias registradas
+          </Typography>
         </Box>
       ) : (
         <Box component={"div"} mt={2}>
@@ -51,19 +53,17 @@ const PagePalabras = ({ categories }) => {
 
 export default PagePalabras;
 
-export const getStaticProps = async (ctx) => {
-  let categories = {};
+export const getServerSideProps = async (ctx) => {
+  let categories = [];
   try {
     const { data } = await axios.get("/category");
     categories = data.data;
     return {
       props: {
         categories,
-      },
-      revalidate: 60,
+      }
     };
   } catch (err) {
-    console.log(err);
     return {
       props: {
         categories: [],

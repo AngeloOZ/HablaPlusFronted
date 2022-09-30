@@ -10,7 +10,7 @@ const PagePacienteCategoria = ({ categories }) => {
     if (category) {
       delete category.icon;
       const base64Category = btoa(JSON.stringify(category));
-      url = `/paciente/categorias/${base64Category}`;
+      url = `/paciente/repaso/${base64Category}`;
     }
 
     return (
@@ -31,7 +31,7 @@ const PagePacienteCategoria = ({ categories }) => {
       currentUser
       configButton
       title="Categorias de Aprendizaje - Habla+"
-      urlBackground="fondo5.png"
+      urlBackground="fondo4.png"
     >
       <Box component="div" className={css.contenedorCategoriasPalabras}>
         <Box component={"div"} className={css.contenedorCategorias}>

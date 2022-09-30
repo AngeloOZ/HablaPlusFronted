@@ -28,14 +28,14 @@ const PageInicioPaciente = () => {
       <Box component="div" className={css.contenedorMenu}>
         <Box component={"div"} className={css.contenedorAvatar}>
           <CircleAvatar
-            src="http://localhost:3000/img/avatar1.png"
+            srcImage="http://localhost:3000/img/avatar1.png"
             size="large"
           />
         </Box>
         <Box component="div" className={css.contenedorButtons}>
           <ButtonMenu url="/paciente/videos" imagen={videoImageMenu} />
           <ButtonMenu url="/paciente/categorias" imagen={palabrasImageMenu} />
-          <ButtonMenu url="#" imagen={practicaImageMenu} />
+          <ButtonMenu url="/paciente/repaso" imagen={practicaImageMenu} />
           <ButtonMenu url="#" imagen={oracionesImageMenu} />
         </Box>
       </Box>

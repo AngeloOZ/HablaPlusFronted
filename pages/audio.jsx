@@ -1,27 +1,56 @@
-import { Box, Button } from "@mui/material";
-import React from "react";
-import { useRecorder } from "../Hooks/useRecorder";
+import { Box, Button, TextField } from "@mui/material";
+import { useEffect } from "react";
+
+import { useSpeechRecognition } from "../Hooks/useSpeechRecognition";
 
 const PageAudio = () => {
-  const { audioURL, startRecording, stopRecording, archivoBLOB, messages } =
-    useRecorder();
+  const { startRecognition, recognizedText, confidense, errorMessage } =
+    useSpeechRecognition();
+
+  const handleMatchWord = () => {
+    const currentWord = "corazón";
+    if (currentWord.length === recognizedText.length) {
+      if (currentWord === recognizedText) {
+        if (confidense > 80) {
+          alert("Coincide...");
+        } else if (confidense <= 80 && confidense >= 70) {
+          alert(`Coincidencia de ${confidense} puedes mejora la pronunciación`);
+        } else {
+          alert(`Coincidencia de ${confidense} debes mejorar la pronunciación`);
+        }
+      } else {
+        alert("0% de coincidencia 1");
+      }
+    } else {
+      alert("0% de coincidencia 2");
+    }
+  };
+
+  useEffect(() => {
+    if (recognizedText.length > 0) {
+      handleMatchWord();
+    }
+  }, [recognizedText]);
+
   return (
     <div style={{ padding: 10 }}>
-      <h1>Grabadora de audio</h1>
-      {console.log(archivoBLOB)}
+      <h1>Reconocimeinto de voz</h1>
       <Box
         component={"div"}
-        width={150}
+        width={280}
         display="flex"
         justifyContent={"space-between"}
       >
-        <Button onClick={startRecording}>Grabar</Button>
-        <Button onClick={stopRecording}>Detener</Button>
+        <Button onClick={startRecognition}>Empezar a grabar</Button>
       </Box>
-      <h2>{messages}</h2>
-      <Box component={"div"}>
-        <audio src={audioURL} controls></audio>
-        <p>{audioURL}</p>
+      <Box component={"div"} mt={2} maxWidth={300}>
+        <p>{errorMessage}</p>
+      </Box>
+      <Box component={"div"} mt={2} maxWidth={300}>
+        <p>{confidense}</p>
+      </Box>
+      <Box component={"div"} mt={2} maxWidth={300}>
+        <TextField multiline minRows={4} fullWidth value={recognizedText} />
       </Box>
     </div>
   );

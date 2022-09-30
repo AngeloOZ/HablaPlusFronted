@@ -23,11 +23,11 @@ import { useGetWords } from "./Hooks/useGetWords";
 export const TableWord = ({ category }) => {
   const { updateCurrentData, toogleModalState, toogleIsEdit } =
     useContext(ModalContext);
-  const { words, isLoading } = useGetWords(category.id_category);
-  const { deleteWord } = useWords();
-
   const [currentUrlAudio, setCurrentUrlAudio] = useState("");
   const reproductor = useRef(null);
+
+  const { words, isLoading } = useGetWords(category.id_category);
+  const { deleteWord } = useWords();
 
   const handleEditWord = (word) => {
     toogleIsEdit(true);
@@ -37,7 +37,7 @@ export const TableWord = ({ category }) => {
 
   const handleDeleteWord = async (word) => {
     const result = await SweetAlert.deleteConfirm({
-      title: `Está seguro de eliminar la palabra: ${word.description}`,
+      title: `Está seguro de eliminar la palabra: ${word.description.replaceAll('*','')}`,
       text: "Una vez realizada Ud. no podrá revertir está acción",
     });
 
@@ -53,7 +53,7 @@ export const TableWord = ({ category }) => {
       </Box>
     );
   }
-  if (words.length == 0) {
+  if (words?.length == 0) {
     return (
       <Box component={"div"}>
         <Typography>No hay palabras registradas </Typography>
