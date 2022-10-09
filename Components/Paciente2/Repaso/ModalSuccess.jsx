@@ -14,7 +14,6 @@ export const ModalSuccess = ({ textButton, handleClickNext }) => {
   useEffect(() => {
     if (openModal) {
       setTimeout(() => {
-        reproductor.current.volume = 0.5;
         reproductor.current.play();
       }, 250);
     }

@@ -44,8 +44,6 @@ const PagePalabraDinamic = ({ words }) => {
 
   const verifyRecordWord = () => {
     const currentWordB = word;
-    console.log(`current: ${currentWordB}`);
-    console.log(`recognized: ${recognizedText}`);
 
     if (currentWordB.length === recognizedText.length) {
       if (currentWordB === recognizedText) {

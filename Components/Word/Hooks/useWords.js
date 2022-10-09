@@ -4,6 +4,15 @@ import { SweetAlert } from "../../../helpers";
 
 export const useWords = () => {
 
+   const getWordsByCategory = async (id_category) => {
+      try {
+         const { data: request } = await axios.get(`category/${id_category}/words`);
+         return ["ok", request.data];
+      } catch (error) {
+         return ['error', []];
+      }
+   }
+
    const addWord = async (word) => {
       const bodyData = {
          id_category: word.id_category,
@@ -153,5 +162,5 @@ export const useWords = () => {
       }
    }
 
-   return { addWord, updateWord, deleteWord }
+   return { getWordsByCategory, addWord, updateWord, deleteWord }
 }

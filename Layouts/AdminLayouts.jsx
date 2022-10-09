@@ -41,8 +41,9 @@ const listSideMenu = [
     url: "/admin/palabras",
   },
   {
-    text: "Oraciones",
+    text: "Oraciones de repaso",
     icon: <Spellcheck />,
+    url: "/admin/repaso-palabras",
   },
 ];
 

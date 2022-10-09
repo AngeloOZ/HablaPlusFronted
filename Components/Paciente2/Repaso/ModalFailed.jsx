@@ -14,7 +14,6 @@ export const ModalFailed = ({ title = "Oops...", textBody = "Lo siento no has ac
   useEffect(() => {
     if (openModal) {
       setTimeout(() => {
-        reproductor.current.volume = 0.1;
         reproductor.current.play();
       }, 200);
     }
