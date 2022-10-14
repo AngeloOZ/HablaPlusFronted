@@ -93,9 +93,9 @@ const PagePalabraDinamic = ({ words }) => {
     toogleModalState(false);
     if (nextWord) {
       setModalState({ success: false, failed: false });
-      router.push(`/paciente/repaso/palabras/${nextWord.id_unique}`);
+      router.push(`/paciente/pronunciacion/palabras/${nextWord.id_unique}`);
     } else {
-      router.push(`/paciente/repaso`);
+      router.push(`/paciente/pronunciacion`);
     }
   };
 
@@ -103,7 +103,7 @@ const PagePalabraDinamic = ({ words }) => {
     <PatientLayout
       currentUser
       configButton
-      urlToProfile="/paciente/repaso/"
+      urlToProfile="/paciente/pronunciacion"
       title={`Palabra: ${word} - Habla+`}
       urlBackground="fondo4.png"
       disableUrlLogo={true}

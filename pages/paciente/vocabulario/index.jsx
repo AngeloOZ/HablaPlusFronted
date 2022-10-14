@@ -10,7 +10,7 @@ const PagePacienteCategoria = ({ categories }) => {
     if (category) {
       delete category.icon;
       const base64Category = btoa(JSON.stringify(category));
-      url = `/paciente/categorias/${base64Category}`;
+      url = `/paciente/vocabulario/${base64Category}`;
     }
 
     return (

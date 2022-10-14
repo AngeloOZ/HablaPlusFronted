@@ -11,13 +11,13 @@ const PageCategoriaDinamic = ({ category, word }) => {
   const router = useRouter();
   const handleClick = () => {
     if (word.id_unique) {
-      router.push(`/paciente/palabra/${word.id_unique}`)
+      router.push(`/paciente/vocabulario/palabra/${word.id_unique}`)
     } else {
       SweetAlert.error({
         title: "Oops...",
         text: "No hay palabras registradas en esta categoria",
         onClose: () => {
-          router.push("/paciente/categorias");
+          router.push("/paciente/vocabulario");
         },
       });
     }
@@ -26,7 +26,7 @@ const PageCategoriaDinamic = ({ category, word }) => {
     <PatientLayout
       currentUser
       configButton
-      urlToProfile="/paciente/categorias"
+      urlToProfile="/paciente/vocabulario"
       title={`Categorias de ${category.description} - Habla+`}
       urlBackground="fondo5.png"
     >
@@ -67,7 +67,7 @@ export const getServerSideProps = async ({ params }) => {
   } catch (error) {
     return {
       redirect: {
-        destination: "/paciente/categorias",
+        destination: "/paciente/vocabulario",
         permanent: false,
       },
     };

@@ -34,9 +34,9 @@ const PageInicioPaciente = () => {
         </Box>
         <Box component="div" className={css.contenedorButtons}>
           <ButtonMenu url="/paciente/videos" imagen={videoImageMenu} />
-          <ButtonMenu url="/paciente/categorias" imagen={palabrasImageMenu} />
-          <ButtonMenu url="/paciente/repaso" imagen={practicaImageMenu} />
-          <ButtonMenu url="#" imagen={oracionesImageMenu} />
+          <ButtonMenu url="/paciente/vocabulario" imagen={palabrasImageMenu} />
+          <ButtonMenu url="/paciente/pronunciacion" imagen={practicaImageMenu} />
+          <ButtonMenu url="/paciente/comprension" imagen={oracionesImageMenu} />
         </Box>
       </Box>
     </PatientLayout>

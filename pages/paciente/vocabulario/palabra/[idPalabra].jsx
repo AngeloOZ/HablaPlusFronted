@@ -3,10 +3,10 @@ import { Box, ButtonBase, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-import { ButtonPatient, Pictograma } from "../../../Components";
-import { PatientLayout } from "../../../Layouts";
+import { PatientLayout } from "../../../../Layouts";
+import { ButtonPatient, Pictograma } from "../../../../Components";
 
-import css from "../../../styles/PalabrasPaciente.module.scss";
+import css from "../../../../styles/PalabrasPaciente.module.scss";
 
 const PagePalabraDinamic = ({ words }) => {
   const { current: currtentWord, next: nextWord } = words;
@@ -26,18 +26,18 @@ const PagePalabraDinamic = ({ words }) => {
 
   const handleClickNext = () => {
     setIsPlayed(false);
-    router.push(`/paciente/palabra/${nextWord.id_unique}`);
+    router.push(`/paciente/vocabulario/palabra/${nextWord.id_unique}`);
   };
 
   const handleClickFinish = () => {
-    router.push(`/paciente/categorias`);
+    router.push(`/paciente/vocabulario`);
   };
 
   return (
     <PatientLayout
       currentUser
       configButton
-      urlToProfile="/paciente/categorias/"
+      urlToProfile="/paciente/vocabulario/"
       title={`Palabra: ${word} - Habla+`}
       urlBackground="fondo5.png"
       disableUrlLogo={true}
@@ -102,7 +102,7 @@ export const getServerSideProps = async ({ params }) => {
   } catch (error) {
     return {
       redirect: {
-        destination: "/paciente/categorias",
+        destination: "/paciente/vocabulario",
         permanent: false,
       },
     };

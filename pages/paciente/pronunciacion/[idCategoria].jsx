@@ -11,13 +11,13 @@ const PageCategoriaDinamic = ({ category, word }) => {
   const router = useRouter();
   const handleClick = () => {
     if (word.id_unique) {
-      router.push(`/paciente/repaso/palabras/${word.id_unique}`);
+      router.push(`/paciente/pronunciacion/palabras/${word.id_unique}`);
     } else {
       SweetAlert.error({
         title: "Oops...",
         text: "No hay palabras registradas en esta categoria",
         onClose: () => {
-          router.push("/paciente/repaso");
+          router.push("/paciente/pronunciacion");
         },
       });
     }
@@ -26,7 +26,7 @@ const PageCategoriaDinamic = ({ category, word }) => {
     <PatientLayout
       currentUser
       configButton
-      urlToProfile="/paciente/repaso"
+      urlToProfile="/paciente/pronunciacion"
       title={`Repaso sobre ${category.description} - Habla+`}
       urlBackground="fondo4.png"
     >
