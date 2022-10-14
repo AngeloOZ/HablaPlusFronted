@@ -117,8 +117,8 @@
   }
   .pictogramaImage {
     width: 90%;
-    height: 100%;
     object-fit: cover;
+    max-height: 100%;
   }
 }
 

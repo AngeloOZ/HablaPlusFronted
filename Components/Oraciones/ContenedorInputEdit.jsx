@@ -14,65 +14,84 @@ import { useWords } from "../Word/Hooks/useWords";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 
-export const ContenedorInputs = ({ categories, handleSubmitEvent }) => {
+export const ContenedorInputEdit = ({
+  categories,
+  handleSubmitEvent,
+  sentence,
+}) => {
   const {
     register,
     handleSubmit,
-    reset,
     setValue,
     formState: { errors },
   } = useForm();
 
   const url = `${process.env.NEXT_PUBLIC_URL}img/placeholder-image.jpg`;
   const { getWordsByCategory } = useWords();
-  const [chosenCategory, setChosenCategory] = useState("");
-  const [chosenWord, setChosenWord] = useState("");
-  const [currentListWords, setCurrentListWords] = useState([]);
+  const [chosenCategory, setChosenCategory] = useState(
+    sentence.pictograma_one.id_category
+  );
+  const [chosenWord, setChosenWord] = useState(sentence.pictograma_one.id_word);
+  const [listWords, setListWords] = useState([]);
   const [listWordsFilter, setListWordsFilter] = useState([]);
   const [positionListFilter, setPositionListFilter] = useState(-1);
   const [currentWord, setCurrentWord] = useState({ icon: url });
   const [pictography2, setPictography2] = useState({ icon: url });
   const [messageWords, setMessageWords] = useState("");
 
+  useEffect(() => {
+    if (sentence) {
+      setPictography2({ icon: sentence.pictograma_two.url });
+      setValue("id_sentence", sentence.id_sentence);
+      setValue("pictograma_one", sentence.pictograma_one.id_word);
+      setValue("pictograma_two", sentence.pictograma_two.id_word);
+      setValue("sentence", sentence.sentence);
+    }
+  }, []);
+
   useEffect(async () => {
     const [message, words] = await getWordsByCategory(chosenCategory);
     if (message == "ok" && words.length !== 0) {
-      setCurrentListWords(words);
+      setListWords(words);
       setListWordsFilter([]);
     } else if (message == "ok" && words.length === 0) {
       setMessageWords("No hay palabras registradas en esta categoría");
-      setCurrentListWords([]);
+      setListWords([]);
       setListWordsFilter([]);
     } else {
       setMessageWords("Seleccione una categoria");
-      setCurrentListWords([]);
+      setListWords([]);
       setListWordsFilter([]);
     }
   }, [chosenCategory]);
 
   useEffect(() => {
-    if (chosenWord != "") {
-      const word = currentListWords.filter(
-        (word) => word.id_word == chosenWord
-      );
-      const list = currentListWords.filter(
-        (word) => word.id_word != chosenWord
-      );
-      setValue("pictograma_one", word[0].id_word);
-      setCurrentWord(word[0]);
+    if (listWords.length != 0 && chosenWord != "") {
+      const [word] = listWords.filter((word) => word.id_word == chosenWord);
+      const list = listWords.filter((word) => word.id_word != chosenWord);
       setListWordsFilter(list);
+      for (const key in list) {
+        if (list[key].id_word == sentence.pictograma_two.id_word) {
+          setPositionListFilter(key);
+          break;
+        }
+      }
+      if (word?.id_word) {
+        setCurrentWord(word);
+        setValue("pictograma_one", word.id_word);
+      }
     }
-  }, [chosenWord]);
+  }, [chosenWord, listWords]);
 
   useEffect(() => {
     if (listWordsFilter.length != 0) {
       if (positionListFilter >= listWordsFilter.length) {
         setPositionListFilter(0);
       }
-      const aux = listWordsFilter[positionListFilter];
-      if (aux?.icon) {
-        setValue("pictograma_two", aux.id_word);
-        setPictography2(aux);
+      const word = listWordsFilter[positionListFilter];
+      if (word?.icon) {
+        setValue("pictograma_two", word.id_word);
+        setPictography2(word);
       } else {
         setPictography2({ icon: url });
         setValue("pictograma_two", undefined);
@@ -129,12 +148,12 @@ export const ContenedorInputs = ({ categories, handleSubmitEvent }) => {
               onChange={handleChangeWord}
               value={chosenWord}
             >
-              {currentListWords.length == 0 ? (
+              {listWords.length == 0 ? (
                 <MenuItem value="" disabled>
                   <em>{messageWords}</em>
                 </MenuItem>
               ) : (
-                currentListWords.map((word) => (
+                listWords.map((word) => (
                   <MenuItem value={word.id_word} key={word.id_word}>
                     {word.description.replaceAll("*", "")}
                   </MenuItem>
@@ -173,7 +192,7 @@ export const ContenedorInputs = ({ categories, handleSubmitEvent }) => {
             >
               <Box
                 component={"img"}
-                src={currentWord.icon}
+                src={currentWord?.icon}
                 sx={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             </Box>
@@ -202,7 +221,7 @@ export const ContenedorInputs = ({ categories, handleSubmitEvent }) => {
               >
                 <Box
                   component={"img"}
-                  src={pictography2.icon}
+                  src={pictography2?.icon}
                   sx={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
               </Box>

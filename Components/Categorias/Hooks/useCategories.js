@@ -20,7 +20,7 @@ export const useCategories = () => {
          });
          bodyData.icon = data.url;
       } catch (error) {
-         console.error(data);
+         console.error(error);
          SweetAlert.error({
             title: "Oops...",
             text: "Hubo un error al cargar la imagén, intentelo de nuevo"

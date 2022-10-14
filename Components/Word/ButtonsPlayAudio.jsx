@@ -29,7 +29,7 @@ const ButtonsPlayAudio = ({ url, setUrl }, reproductorRef) => {
     setPaused(false);
     setTimeout(() => {
       reproductorRef.current.play();
-    }, 200);
+    }, 250);
   };
 
   const handleClickPause = () => {

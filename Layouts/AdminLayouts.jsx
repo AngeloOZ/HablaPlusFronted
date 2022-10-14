@@ -197,7 +197,7 @@ function AppBarCustom({ title, open, handleDrawerOpen }) {
   );
 }
 
-export const AdminLayouts = ({ titlePage, children }) => {
+export const AdminLayouts = ({ title = "Habla+", titlePage, children }) => {
   const [open, setOpen] = useState(true);
 
   const handleDrawerOpen = () => {
@@ -211,7 +211,7 @@ export const AdminLayouts = ({ titlePage, children }) => {
   return (
     <Box sx={{ display: "flex" }} color="primary">
       <Head>
-        <title>Habla+</title>
+        <title>{title}</title>
       </Head>
       <AppBarCustom
         handleDrawerOpen={handleDrawerOpen}

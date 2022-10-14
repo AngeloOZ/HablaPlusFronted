@@ -1,8 +1,10 @@
 import { Box, Button } from "@mui/material";
 import Link from "next/link";
+import { TableSentences } from "../../../Components";
 import { AdminLayouts } from "../../../Layouts";
 
 const PageAdminRepaso = () => {
+
   return (
     <AdminLayouts titlePage={"Oraciones de repaso"}>
       <Box
@@ -15,6 +17,7 @@ const PageAdminRepaso = () => {
           <Button>Agregar categoria</Button>
         </Link>
       </Box>
+      <TableSentences />
     </AdminLayouts>
   );
 };
