@@ -1,2 +1,2 @@
-export * as SweetAlert from './sweetalert';
 export * as VideosYoutube from './helperVideos';
+export * as SweetAlert from './sweetAlert';

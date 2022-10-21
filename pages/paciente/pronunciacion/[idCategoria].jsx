@@ -4,8 +4,8 @@ import axios from "axios";
 
 import { ButtonPatient } from "../../../Components";
 import { PatientLayout } from "../../../Layouts";
-import css from "../../../styles/PalabrasPaciente.module.scss";
 import { SweetAlert } from "../../../helpers";
+import css from "../../../styles/PalabrasPaciente.module.scss";
 
 const PageCategoriaDinamic = ({ category, word }) => {
   const router = useRouter();
