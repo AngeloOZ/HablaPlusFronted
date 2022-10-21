@@ -28,7 +28,7 @@ const PageInicioPaciente = () => {
       <Box component="div" className={css.contenedorMenu}>
         <Box component={"div"} className={css.contenedorAvatar}>
           <CircleAvatar
-            srcImage="http://localhost:3000/img/avatar1.png"
+            srcImage={location.origin+"/img/avatar1.png"}
             size="large"
           />
         </Box>

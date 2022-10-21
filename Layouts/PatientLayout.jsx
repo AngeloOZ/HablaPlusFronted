@@ -25,7 +25,7 @@ export const PatientLayout = ({
         <Box component={"div"} className={css.currentUser}>
           {currentUser ? (
             <CircleAvatar
-              srcImage={"http://localhost:3000/img/avatar1.png"}
+              srcImage={`${location.origin}/img/avatar1.png`}
               hrefTo={urlToProfile}
             />
           ) : (
@@ -38,7 +38,7 @@ export const PatientLayout = ({
           <ButtonBase className={css.logoHeader}>
             <Box
               component={"img"}
-              src={`${process.env.NEXT_PUBLIC_URL}img/logo-header.png`}
+              src={`${location.origin}/img/logo-header.png`}
             />
           </ButtonBase>
         </Link>
@@ -54,7 +54,7 @@ export const PatientLayout = ({
         <footer
           className={css.footer}
           style={{
-            backgroundImage: `url(${process.env.NEXT_PUBLIC_URL}img/fondos/${urlBackground})`,
+            backgroundImage: `url(${location.origin}/img/fondos/${urlBackground})`,
           }}
         ></footer>
       </div>

@@ -64,6 +64,7 @@ export const getServerSideProps = async (ctx) => {
       }
     };
   } catch (err) {
+    console.error(err);
     return {
       props: {
         categories: [],
