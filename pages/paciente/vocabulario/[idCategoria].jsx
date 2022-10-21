@@ -49,7 +49,7 @@ export const getServerSideProps = async ({ params }) => {
     const { idCategoria } = params;
     const base64Category = atob(idCategoria);
     const category = JSON.parse(base64Category);
-
+    axios.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
     const { data } = await axios.get(
       `/category/${category.id_category}/words?limit=1`
     );

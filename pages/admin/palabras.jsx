@@ -56,6 +56,7 @@ export default PagePalabras;
 export const getServerSideProps = async (ctx) => {
   let categories = [];
   try {
+    axios.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
     const { data } = await axios.get("/category");
     categories = data.data;
     return {

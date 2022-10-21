@@ -46,6 +46,8 @@ export default PageCategoriaDinamic;
 
 export const getServerSideProps = async ({ params }) => {
   try {
+    axios.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
+
     const { idCategoria } = params;
     const base64Category = atob(idCategoria);
     const category = JSON.parse(base64Category);

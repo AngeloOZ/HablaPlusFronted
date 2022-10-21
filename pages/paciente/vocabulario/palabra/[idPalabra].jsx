@@ -91,6 +91,7 @@ export default PagePalabraDinamic;
 
 export const getServerSideProps = async ({ params }) => {
   try {
+    axios.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
     const idWord = params.idPalabra;
     const { data } = await axios.get(`/word/unique/${idWord}`);
     const words = data.data;
