@@ -6,7 +6,7 @@ import { lightTheme } from "../theme";
 import { ModalProvider } from "../Context";
 
 function MyApp({ Component, pageProps }) {
-  axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+  axios.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
   axios.defaults.headers.common[
     "Authorization"
   ] = `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`;

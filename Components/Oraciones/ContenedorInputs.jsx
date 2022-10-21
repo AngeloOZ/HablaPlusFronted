@@ -34,20 +34,25 @@ export const ContenedorInputs = ({ categories, handleSubmitEvent }) => {
   const [pictography2, setPictography2] = useState({ icon: url });
   const [messageWords, setMessageWords] = useState("");
 
-  useEffect(async () => {
-    const [message, words] = await getWordsByCategory(chosenCategory);
-    if (message == "ok" && words.length !== 0) {
-      setCurrentListWords(words);
-      setListWordsFilter([]);
-    } else if (message == "ok" && words.length === 0) {
-      setMessageWords("No hay palabras registradas en esta categoría");
-      setCurrentListWords([]);
-      setListWordsFilter([]);
-    } else {
-      setMessageWords("Seleccione una categoria");
-      setCurrentListWords([]);
-      setListWordsFilter([]);
+  useEffect(() => {
+    async function fetchData () {
+      const [message, words] = await getWordsByCategory(chosenCategory);
+      if (message == "ok" && words.length !== 0) {
+        setCurrentListWords(words);
+        setListWordsFilter([]);
+      } else if (message == "ok" && words.length === 0) {
+        setMessageWords("No hay palabras registradas en esta categoría");
+        setCurrentListWords([]);
+        setListWordsFilter([]);
+      } else {
+        setMessageWords("Seleccione una categoria");
+        setCurrentListWords([]);
+        setListWordsFilter([]);
+      }
     }
+
+    fetchData();
+
   }, [chosenCategory]);
 
   useEffect(() => {
