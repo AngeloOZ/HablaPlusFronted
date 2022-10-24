@@ -58,7 +58,7 @@ export const TableSentences = () => {
         <TableHead>
           <TableRow>
             <TableCell>Oración</TableCell>
-            <TableCell>
+            <TableCell sx={{ textAlign: "center" }}>
               Palabra <br /> asociada
             </TableCell>
             <TableCell>Pictograma Uno</TableCell>
