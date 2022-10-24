@@ -162,5 +162,17 @@ export const useWords = () => {
       }
    }
 
-   return { getWordsByCategory, addWord, updateWord, deleteWord }
+   const registerWordLearned = async (listWords, bodyRequest) => {
+      try {
+         if (!listWords.includes(bodyRequest.id_word)) {
+            await axios.post('word_learned', bodyRequest);
+            return false;
+         }
+         return true;
+      } catch (error) {
+         throw { status: 500, message: "no hubo registro", data: error }
+      }
+   }
+
+   return { getWordsByCategory, addWord, updateWord, deleteWord, registerWordLearned }
 }

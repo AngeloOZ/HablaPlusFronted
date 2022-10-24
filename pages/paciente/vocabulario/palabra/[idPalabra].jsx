@@ -4,16 +4,18 @@ import { useRouter } from "next/router";
 import axios from "axios";
 
 import { PatientLayout } from "../../../../Layouts";
+import { useWords } from "../../../../Components/Word/Hooks";
 import { ButtonPatient, Pictograma } from "../../../../Components";
 
 import css from "../../../../styles/PalabrasPaciente.module.scss";
 
-const PagePalabraDinamic = ({ words }) => {
+const PagePalabraDinamic = ({ words, listWordsLearned }) => {
   const { current: currtentWord, next: nextWord } = words;
   const word = currtentWord.description.replaceAll("*", "");
 
   const router = useRouter();
   const [isPlayed, setIsPlayed] = useState(false);
+  const { registerWordLearned } = useWords();
   const reproductoRef = useRef(null);
 
   useEffect(() => {
@@ -25,12 +27,28 @@ const PagePalabraDinamic = ({ words }) => {
   };
 
   const handleClickNext = () => {
-    setIsPlayed(false);
-    router.push(`/paciente/vocabulario/palabra/${nextWord.id_unique}`);
+    const data = { id_user: 1, id_word: currtentWord.id_word };
+    registerWordLearned(listWordsLearned, data)
+      .then((response) => {
+        setIsPlayed(false);
+        router.push(`/paciente/vocabulario/palabra/${nextWord.id_unique}`);
+      })
+      .catch((error) => {
+        console.error(error.message);
+        console.info(error.data);
+      });
   };
 
   const handleClickFinish = () => {
-    router.push(`/paciente/vocabulario`);
+    const data = { id_user: 1, id_word: currtentWord.id_word };
+    registerWordLearned(listWordsLearned, data)
+      .then((response) => {
+        router.push(`/paciente/vocabulario`);
+      })
+      .catch((error) => {
+        console.error(error.message);
+        console.info(error.data);
+      });
   };
 
   return (
@@ -94,10 +112,12 @@ export const getServerSideProps = async ({ params }) => {
     axios.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
     const idWord = params.idPalabra;
     const { data } = await axios.get(`/word/unique/${idWord}`);
+    const { data: listWordsLearned } = await axios.get(`/word_learned/user/1`);
     const words = data.data;
     return {
       props: {
         words,
+        listWordsLearned,
       },
     };
   } catch (error) {
