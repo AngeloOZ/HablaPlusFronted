@@ -11,7 +11,7 @@ export const LoginLayout = ({ title = "Inicio - Habla+", children }) => {
       <footer
         className={css.footer}
         style={{
-          backgroundImage: `url(${"http://localhost:3000/img/fondos/fondo1.png"})`,
+          backgroundImage: `url(${process.env.NEXT_PUBLIC_URL}img/fondos/fondo1.png)`,
         }}
       ></footer>
     </div>

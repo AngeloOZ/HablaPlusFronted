@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Box,
   FormControl,
@@ -8,20 +7,30 @@ import {
 } from "@mui/material";
 import css from "../../styles/Components.module.scss";
 
-export const InputPatient = ({ label, helperText }) => {
-  const [error, seterror] = useState(false);
+export const InputPatient = ({
+  label,
+  type = "text",
+  placeholder = "",
+  helperText,
+  register,
+  errors = false,
+  className,
+  large = false
+}) => {
   return (
-    <Box component={"div"} className={css.input}>
-      <FormControl error={error}>
-        <InputLabel shrink className={`${!error ? css.colorViolet : ""}`}>
+    <Box component={"div"} className={`${css.input} ${className} ${large ? css.large: ""}`}>
+      <FormControl error={errors} fullWidth className={css.formControl}>
+        <InputLabel shrink className={`${!errors ? css.colorViolet : ""}`}>
           {label}
         </InputLabel>
         <InputBase
-          placeholder=""
-          className={`${css.inputBase} ${error ? css.error : ""}`}
+          placeholder={placeholder}
+          type={type}
+          className={`${css.inputBase} ${errors ? css.error : ""}`}
+          {...register}
         />
-        {(helperText || error) && (
-          <FormHelperText className={`${!error ? css.colorViolet : ""}`}>
+        {(helperText || errors) && (
+          <FormHelperText className={`${!errors ? css.colorViolet : ""}`}>
             {helperText || "Ingrese texto"}
           </FormHelperText>
         )}

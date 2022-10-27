@@ -3,13 +3,16 @@ import { useRouter } from "next/router";
 
 import axios from "axios";
 import Cookies from "js-cookie";
+import jwt from "jsonwebtoken";
 import { AuthContext, authReducer } from "./";
 
 const AUTH_INITIAL_STATE = {
   isLoggedIn: false,
   username: undefined,
-  rol: undefined,
-  id: undefined,
+  names: undefined,
+  surname: undefined,
+  id_type: undefined,
+  id_user: undefined,
 };
 
 export const AuthProvider = ({ children }) => {
@@ -24,17 +27,13 @@ export const AuthProvider = ({ children }) => {
     const token = Cookies.get("SESSION_ID") ? Cookies.get("SESSION_ID") : "";
     if (token != "") {
       try {
-        const { data } = await axios.post("/auth/validate-token", {
+        const { data: user } = await axios.post("/auth/verify-token", {
           token,
         });
-        const payloadData = data.data;
+        delete user.iat;
         dispatch({
           type: "AUTH_LOGIN",
-          payload: {
-            username: payloadData.USERNAME,
-            rol: payloadData.TIPO,
-            id: payloadData.IDUSUARIO,
-          },
+          payload: user,
         });
       } catch (error) {
         console.error(error);
@@ -43,13 +42,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const loginUser = async (user, pwd) => {
+  const loginUser = async (userCredentetials) => {
     try {
-      const bodyData = { USERNAME: user, PASSWORD: pwd };
-      const { data } = await axios.post("/auth", bodyData);
-      const { username, rol, token, id } = data.data;
+      const { data } = await axios.post("/auth/login", userCredentetials);
+      const user = data;
+      const token = user.token;
+      delete user.token;
       Cookies.set("SESSION_ID", token, { expires: 1 });
-      dispatch({ type: "AUTH_LOGIN", payload: { username, rol, id } });
+      dispatch({ type: "AUTH_LOGIN", payload: user });
       return {
         hasError: false,
       };
@@ -60,17 +60,16 @@ export const AuthProvider = ({ children }) => {
           response: error.response?.data,
         };
       }
-
       return {
         hasError: true,
-        response: { message: "El usuario y/o contraseña no son válidos" },
+        response: error,
       };
     }
   };
 
   const registerUser = async (body) => {
     try {
-      const { data } = await axios.post("/usuario/cliente", body);
+      const { data } = await axios.post("/auth/register", body);
       const { username, rol, token, id } = data.data;
       Cookies.set("SESSION_ID", token, { expires: 1 });
 
@@ -96,8 +95,7 @@ export const AuthProvider = ({ children }) => {
 
   const logoutUser = () => {
     Cookies.remove("SESSION_ID");
-    Cookies.remove("cart");
-    router.push("/");
+    router.push("/auth/login");
     router.reload();
   };
 

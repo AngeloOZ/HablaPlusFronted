@@ -8,10 +8,10 @@
   border: 6px solid $color-rosado-1;
   overflow: hidden;
 
-  &.hover{
+  &.hover {
     cursor: pointer;
   }
-  
+
   .circleAvatarImagen {
     width: 110%;
     position: absolute;
@@ -19,17 +19,17 @@
     image-rendering: auto;
     user-select: none;
   }
-  
+
   &.small {
     height: 135px;
     width: 135px;
-    
+
     .circleAvatarImagen {
       top: -2px;
       left: -5px;
     }
   }
-  
+
   &.large {
     border: 20px solid $color-rosado-1;
     height: 440px;
@@ -63,6 +63,20 @@
 }
 
 .button {
+  &.fullwidth {
+    width: 100%;
+  }
+
+  &:active {
+    transform: translateY(1px);
+    box-shadow: 3px 3px 3px -1px rgba(0, 0, 0, 0.7);
+  }
+
+  &.disabled {
+    background: rgb(111, 111, 111);
+    box-shadow: none;
+  }
+  
   min-width: 120px;
   padding: 15px 30px;
   border-radius: 25px;
@@ -78,20 +92,6 @@
   );
   box-shadow: 3px 5px 3px -1px rgba(0, 0, 0, 0.6);
   transition: 0.2s ease all;
-
-  &.fullwidth {
-    width: 100%;
-  }
-
-  &:active {
-    transform: translateY(1px);
-    box-shadow: 3px 3px 3px -1px rgba(0, 0, 0, 0.7);
-  }
-
-  &.disabled{
-    background: rgb(111, 111, 111);
-    box-shadow: none;
-  }
 }
 
 .pictograma {
@@ -123,6 +123,22 @@
 }
 
 .input {
+  width: 100%;
+  min-height: 60px;
+  margin-bottom: 10px;
+  padding: 15px 0 8px 0;
+
+  &.large {
+    .colorViolet {
+      font-size: 19px;
+    }
+    .inputBase {
+      height: 50px;
+      padding-left: 15px;
+      margin-top: 15px;
+    }
+  }
+
   .colorViolet {
     font-family: $font-gotham;
     color: $color-violeta-1 !important;
@@ -133,6 +149,7 @@
     border-radius: 25px;
     margin-top: 10px;
     padding-left: 10px;
+    width: 100%;
     border: 1px solid $color-violeta-1;
     &.error {
       border: 1px solid #dc3545;

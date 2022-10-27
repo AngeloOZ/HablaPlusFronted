@@ -1,0 +1,35 @@
+@use "scss/variables" as *;
+
+.contenedorMain {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-content: center;
+
+  .linkAlter{
+    display: block;
+    text-align: end;
+    margin-top: 12px;
+    margin-right: 2px;
+    font-family: $font-gotham;
+    font-weight: 400;
+    color: $color-violeta-1;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+
+  .logoLogin {
+    width: 380px;
+    height: 100px;
+  }
+
+  .contenedorLogin {
+    width: 380px;
+    margin: auto;
+
+    .buttonLogin{
+      color: #f3f3f3;
+    }
+  }
+}

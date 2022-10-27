@@ -6,6 +6,7 @@ export const ButtonPatient = ({
   children,
   className,
   disabled = false,
+  type="button",
   onClickC = () => {},
 }) => {
   return (
@@ -15,6 +16,7 @@ export const ButtonPatient = ({
       } ${className} ${disabled ? css.disabled : ""}`}
       disabled={disabled}
       onClick={onClickC}
+      type={type}
     >
       {children}
     </ButtonBase>
