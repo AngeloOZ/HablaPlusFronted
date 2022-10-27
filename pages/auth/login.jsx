@@ -1,5 +1,8 @@
 import { useContext } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
 import { Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Context";
@@ -7,9 +10,7 @@ import { ButtonPatient, InputPatient } from "../../Components";
 import { LoginLayout } from "../../Layouts";
 import css from "../../styles/Auth.patient.module.scss";
 import logo from "../../public/img/logo.png";
-import Link from "next/link";
 import { SweetAlert } from "../../helpers";
-import { useRouter } from "next/router";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -40,7 +41,7 @@ const LoginPage = () => {
   };
 
   return (
-    <LoginLayout title="Login - Habla+">
+    <LoginLayout title="Iniciar sesión - Habla+">
       <Box className={css.contenedorMain}>
         <Box className={css.logoLogin}>
           <Image src={logo} />

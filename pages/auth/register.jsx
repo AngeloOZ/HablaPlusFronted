@@ -1,11 +1,118 @@
-import { LoginLayout } from '../../Layouts'
+import Image from "next/image";
+import { Box } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { ButtonPatient, InputPatient } from "../../Components";
+import { LoginLayout } from "../../Layouts";
+
+import css from "../../styles/Auth.patient.module.scss";
+import logo from "../../public/img/logo.png";
+import Link from "next/link";
 
 const RegisterPage = () => {
-  return (
-    <LoginLayout title="Login - Habla+">
-      RegisterPage
-    </LoginLayout>
-  )
-}
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-export default RegisterPage
+  const handleLoginUser = () =>{
+
+  }
+
+  return (
+    <LoginLayout title="Crear cuenta - Habla+">
+      <Box className={css.contenedorMain}>
+        <Box className={css.logoLogin}>
+          <Image src={logo} />
+        </Box>
+        <Box component={"div"} className={css.contenedorLogin}>
+          <form onSubmit={handleSubmit(handleLoginUser)}>
+            <InputPatient
+              label="Nombres"
+              className={css.inputLogin}
+              register={{
+                ...register("names", {
+                  required: "Los nombres de usuario es requerido",
+                  pattern: {
+                    value: /^[A-Za-z0-9ñÑ áéíóú ÁÉÍÓÚ]+$/i,
+                    message: "Solo es permitido caracteres alfanuméricos",
+                  },
+                }),
+              }}
+              errors={!!errors.names}
+              helperText={errors.names?.message}
+            />
+            <InputPatient
+              label="Apellidos"
+              className={css.inputLogin}
+              register={{
+                ...register("surname", {
+                  required: "Los apellidos de usuario es requerido",
+                  pattern: {
+                    value: /^[A-Za-z0-9ñÑ áéíóú ÁÉÍÓÚ]+$/i,
+                    message: "Solo es permitido caracteres alfanuméricos",
+                  },
+                }),
+              }}
+              errors={!!errors.surname}
+              helperText={errors.surname?.message}
+            />
+            <InputPatient
+              label="Edad"
+              className={css.inputLogin}
+              register={{
+                ...register("age", {
+                  required: "La edad del usuario es requerido",
+                  pattern: {
+                    value: /^[0-9]+$/i,
+                    message: "Solo es permitido valores númericos",
+                  },
+                }),
+              }}
+              errors={!!errors.age}
+              helperText={errors.age?.message}
+            />
+            <InputPatient
+              label="Nombre de usuario"
+              className={css.inputLogin}
+              register={{
+                ...register("username", {
+                  required: "Los apellidos de usuario es requerido",
+                  pattern: {
+                    value: /^[A-Za-z0-9]+$/i,
+                    message: "Solo es permitido caracteres de la a-z y números",
+                    
+                  },
+                }),
+              }}
+              errors={!!errors.username}
+              helperText={errors.username?.message}
+            />
+            <InputPatient
+              label="Contraseña"
+              type="password"
+              className={css.inputLogin}
+              register={{
+                ...register("password", {
+                  required: "La contraseña es requerida",
+                  minLength: { value: 4, message: "Mínimo 4 caracteres" },
+                }),
+              }}
+              errors={!!errors.password}
+              helperText={errors.password?.message}
+            />
+            <ButtonPatient className={css.buttonLogin} type="submit" fullwidth>
+              Crear cuenta
+            </ButtonPatient>
+          </form>
+        </Box>
+        <Link href="/auth/login">
+          <a className={css.linkAlter}>¿Ya tienes cuenta? inicia sesión</a>
+        </Link>
+      </Box>
+    </LoginLayout>
+  );
+};
+
+export default RegisterPage;
