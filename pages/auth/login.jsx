@@ -78,7 +78,7 @@ const LoginPage = () => {
               errors={!!errors.password}
               helperText={errors.password?.message}
             />
-            <ButtonPatient className={css.buttonLogin} type="submit" fullwidth>
+            <ButtonPatient className={css.buttonLogin} type="submit">
               Iniciar seción
             </ButtonPatient>
           </form>
