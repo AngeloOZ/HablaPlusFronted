@@ -52,6 +52,7 @@ export const AuthProvider = ({ children }) => {
       dispatch({ type: "AUTH_LOGIN", payload: user });
       return {
         hasError: false,
+        id_type: user.id_type
       };
     } catch (error) {
       if (axios.isAxiosError(error)) {

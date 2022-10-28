@@ -20,7 +20,7 @@ const LoginPage = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const { loginUser, id_type } = useContext(AuthContext);
+  const { loginUser} = useContext(AuthContext);
 
   const handleLoginUser = async (user) => {
     const login = await loginUser(user);
@@ -33,7 +33,7 @@ const LoginPage = () => {
       });
     }
 
-    if (id_type == 2) {
+    if (login.id_type == 1) {
       router.push("/admin");
     } else {
       router.push("/paciente");
