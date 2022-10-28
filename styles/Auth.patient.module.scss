@@ -22,8 +22,6 @@
   .logoLogin {
     width: 380px;
     height: 100px;
-    padding: 15px 30px;
-    border-radius: 25px;
   }
 
   .contenedorLogin {
@@ -32,6 +30,9 @@
 
     .buttonLogin{
       color: #f3f3f3;
+      width: 100%;
+      padding: 13px 30px;
+      border-radius: 25px;
     }
   }
 }
