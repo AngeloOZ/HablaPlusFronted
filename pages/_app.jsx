@@ -9,10 +9,6 @@ import { AuthProvider, ModalProvider } from "../Context";
 
 function MyApp({ Component, pageProps }) {
   axios.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
-  axios.defaults.headers.common[
-    "Authorization"
-  ] = `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`;
-
   if (Cookies.get("SESSION_ID")) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get(
       "SESSION_ID"

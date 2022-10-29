@@ -4,7 +4,6 @@ export async function middleware(request) {
    const currentUrl = request.nextUrl.pathname;
    if (currentUrl.startsWith('/auth')) {
       const currentUser = await isValidSession(request);
-      console.log("path auth %j", currentUser);
       if (currentUser) {
          switch (currentUser.id_type) {
             case 1: return NextResponse.redirect(new URL('/admin', request.url));
@@ -16,7 +15,6 @@ export async function middleware(request) {
    else if (currentUrl.startsWith('/paciente')) {
       const currentUser = await isValidSession(request);
       if (currentUser) {
-         console.log("path paciente %j", currentUser);
          if(currentUser.id_type == 1){
             return NextResponse.redirect(new URL('/admin', request.url));
          }else{
@@ -27,7 +25,6 @@ export async function middleware(request) {
    }
    else if (currentUrl.startsWith('/admin')) {
       const currentUser = await isValidSession(request);
-      console.log("path admin %j", currentUser);
       if (currentUser) {
          if(currentUser.id_type == 1){
             return NextResponse.next();
@@ -39,8 +36,6 @@ export async function middleware(request) {
    }
 }
 
-
-
 function existSession(request = NextRequest) {
    const session = request.cookies.get('SESSION_ID');
    if (session) {
@@ -49,6 +44,7 @@ function existSession(request = NextRequest) {
       undefined;
    }
 }
+
 async function isValidToken(token) {
    try {
       const url = `${process.env.NEXT_PUBLIC_URL_API}/auth/verify-token`;
@@ -62,7 +58,7 @@ async function isValidToken(token) {
       });
 
       const user = await response.json();
-      if(user?.status >= 400) throw new Error(user);
+      if(user?.status >= 400) throw Error(user);
       return user;
    } catch (error) {
       console.error(error);
@@ -70,6 +66,7 @@ async function isValidToken(token) {
       return undefined;
    }
 }
+
 async function isValidSession(request = NextRequest) {
    const token = existSession(request);
    if (token) {

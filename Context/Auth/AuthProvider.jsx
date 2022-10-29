@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 
 import axios from "axios";
 import Cookies from "js-cookie";
-import jwt from "jsonwebtoken";
 import { AuthContext, authReducer } from "./";
 
 const AUTH_INITIAL_STATE = {
@@ -28,7 +27,7 @@ export const AuthProvider = ({ children }) => {
     if (token != "") {
       try {
         const { data: user } = await axios.post("/auth/verify-token", {
-          token,
+          token
         });
         delete user.iat;
         dispatch({
