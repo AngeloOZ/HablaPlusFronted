@@ -1,24 +1,39 @@
+import { useContext } from "react";
+import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { Box } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { ButtonPatient, InputPatient } from "../../Components";
+import { AuthContext } from "../../Context";
 import { LoginLayout } from "../../Layouts";
+import { SweetAlert } from "../../helpers";
+import { ButtonPatient, InputPatient } from "../../Components";
 
 import css from "../../styles/Auth.patient.module.scss";
 import logo from "../../public/img/logo.png";
-import Link from "next/link";
 
 const RegisterPage = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
+  const { registerUser } = useContext(AuthContext);
 
-  const handleLoginUser = () =>{
-
-  }
+  const handleRegisterUser = async (user) => {
+    const register = await registerUser(user);
+    if (register.hasError) {
+      console.error(register);
+      reset();
+      return SweetAlert.error({
+        title: "Oops...",
+        text: "Hubo un error al registrar el usuario",
+      });
+    }
+    router.push("/paciente/elegir-avatar");
+  };
 
   return (
     <LoginLayout title="Crear cuenta - Habla+">
@@ -27,7 +42,7 @@ const RegisterPage = () => {
           <Image src={logo} />
         </Box>
         <Box component={"div"} className={css.contenedorLogin}>
-          <form onSubmit={handleSubmit(handleLoginUser)}>
+          <form onSubmit={handleSubmit(handleRegisterUser)}>
             <InputPatient
               label="Nombres"
               className={css.inputLogin}
@@ -35,8 +50,9 @@ const RegisterPage = () => {
                 ...register("names", {
                   required: "Los nombres de usuario es requerido",
                   pattern: {
-                    value: /^[A-Za-z0-9ñÑ áéíóú ÁÉÍÓÚ]+$/i,
-                    message: "Solo es permitido caracteres alfanuméricos",
+                    value: /^[A-Za-zñÑáéíóúÁÉÍÓÚ \s]+$/i,
+                    message:
+                      "Solo es permitido letras sin carácteres especiales",
                   },
                 }),
               }}
@@ -50,8 +66,9 @@ const RegisterPage = () => {
                 ...register("surname", {
                   required: "Los apellidos de usuario es requerido",
                   pattern: {
-                    value: /^[A-Za-z0-9ñÑ áéíóú ÁÉÍÓÚ]+$/i,
-                    message: "Solo es permitido caracteres alfanuméricos",
+                    value: /^[[A-Za-zñÑáéíóúÁÉÍÓÚ \s]+$/i,
+                    message:
+                      "Solo es permitido letras sin carácteres especiales",
                   },
                 }),
               }}
@@ -82,7 +99,6 @@ const RegisterPage = () => {
                   pattern: {
                     value: /^[A-Za-z0-9]+$/i,
                     message: "Solo es permitido caracteres de la a-z y números",
-                    
                   },
                 }),
               }}
@@ -102,7 +118,7 @@ const RegisterPage = () => {
               errors={!!errors.password}
               helperText={errors.password?.message}
             />
-            <ButtonPatient className={css.buttonLogin} type="submit" fullwidth>
+            <ButtonPatient className={css.buttonLogin} type="submit">
               Crear cuenta
             </ButtonPatient>
           </form>

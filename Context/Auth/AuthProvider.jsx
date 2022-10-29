@@ -69,14 +69,18 @@ export const AuthProvider = ({ children }) => {
 
   const registerUser = async (body) => {
     try {
-      const { data } = await axios.post("/auth/register", body);
-      const { username, rol, token, id } = data.data;
+      console.log(body)
+      const { data : user } = await axios.post("/auth/register", body);
+      const token = user.token;
+      delete user.token;
+
       Cookies.set("SESSION_ID", token, { expires: 1 });
 
-      dispatch({ type: "AUTH_LOGIN", payload: { username, rol, id } });
+      dispatch({ type: "AUTH_LOGIN", payload: user});
 
       return {
         hasError: false,
+        id_type: user.id_type
       };
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -88,7 +92,7 @@ export const AuthProvider = ({ children }) => {
 
       return {
         hasError: true,
-        response: { message: "No se pudo crear el usuario - intente de nuevo" },
+        response: error
       };
     }
   };
