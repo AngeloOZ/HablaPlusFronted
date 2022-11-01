@@ -1,0 +1,60 @@
+@font-face {
+    font-family: 'Gotham';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Gotham'), url('https://fonts.cdnfonts.com/s/14898/GothamBook.woff') format('woff');
+}
+@font-face {
+    font-family: 'Gotham';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Gotham'), url('https://fonts.cdnfonts.com/s/14898/GothamLight.woff') format('woff');
+}
+@font-face {
+    font-family: 'Gotham';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Gotham'), url('https://fonts.cdnfonts.com/s/14898/GothamMedium_1.woff') format('woff');
+}
+@font-face {
+    font-family: 'Gotham';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Gotham'), url('https://fonts.cdnfonts.com/s/14898/Gotham-Bold.woff') format('woff');
+}
+@font-face {
+    font-family: 'Gotham Black';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Gotham Black'), url('https://fonts.cdnfonts.com/s/14898/Gotham-Black.woff') format('woff');
+}
+@font-face {
+    font-family: 'Gotham Light';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Gotham Light'), url('https://fonts.cdnfonts.com/s/14898/Gotham-Light.woff') format('woff');
+}
+@font-face {
+    font-family: 'Gotham Thin';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Gotham Thin'), url('https://fonts.cdnfonts.com/s/14898/Gotham-Thin.woff') format('woff');
+}
+@font-face {
+    font-family: 'Gotham XLight';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Gotham XLight'), url('https://fonts.cdnfonts.com/s/14898/Gotham-XLight.woff') format('woff');
+}
+@font-face {
+    font-family: 'Gotham Book';
+    font-style: italic;
+    font-weight: 500;
+    src: local('Gotham Book'), url('https://fonts.cdnfonts.com/s/14898/Gotham-BookItalic.woff') format('woff');
+}
+@font-face {
+    font-family: 'Gotham Ultra';
+    font-style: italic;
+    font-weight: 500;
+    src: local('Gotham Ultra'), url('https://fonts.cdnfonts.com/s/14898/Gotham-UltraItalic.woff') format('woff');
+}
