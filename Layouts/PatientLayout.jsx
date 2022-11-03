@@ -1,8 +1,10 @@
+import { useContext, useState } from "react";
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
-import { Box, ButtonBase } from "@mui/material";
+import { Box, ButtonBase, Menu, MenuItem } from "@mui/material";
 import { CircleAvatar } from "../Components";
+import { AuthContext } from "../Context";
 
 import configBtn from "../public/img/botones/configBtn.png";
 import css from "../styles/PatientLayout.module.scss";
@@ -16,6 +18,26 @@ export const PatientLayout = ({
   urlToProfile = "/paciente",
   urlBackground = "fondo1.png",
 }) => {
+  const { logoutUser } = useContext(AuthContext);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () =>{
+    setAnchorEl(null);
+  }  
+  
+  const handleClickLogout = () => {
+    handleClose();
+    logoutUser();
+  };
+  
+  const handleClickProfile = () => {
+    handleClose();    
+  };
   return (
     <>
       <Head>
@@ -29,9 +51,32 @@ export const PatientLayout = ({
               hrefTo={urlToProfile}
             />
           ) : (
-            <ButtonBase href="#" className={css.btnConfig}>
-              <Image src={configBtn} />
-            </ButtonBase>
+            <>
+              <ButtonBase
+                className={css.btnConfig}
+                id="basic-button"
+                aria-controls={open ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+              >
+                <Image src={configBtn} />
+              </ButtonBase>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+                transformOrigin={{ horizontal: "right", vertical: "top" }}
+                anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+              >
+                <MenuItem onClick={handleClickProfile}>Perfil</MenuItem>
+                <MenuItem onClick={handleClickLogout}>Cerrar sesión</MenuItem>
+              </Menu>
+            </>
           )}
         </Box>
         <Link href={disableUrlLogo ? "#" : "/paciente"} passHref>
