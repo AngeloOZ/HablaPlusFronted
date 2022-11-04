@@ -5,11 +5,13 @@ const AUTH_INITIAL_STATE = {
   username: undefined,
   names: undefined,
   surname: undefined,
+  avatar: undefined,
   id_type: undefined,
   id_user: undefined,
   loginUser: () => {},
   logoutUser: () => {},
   registerUser: () => {},
+  verifyToken: () => {},
 };
 
 export const AuthContext = createContext(({} = AUTH_INITIAL_STATE));

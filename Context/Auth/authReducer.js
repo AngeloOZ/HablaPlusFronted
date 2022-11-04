@@ -10,6 +10,7 @@ export const authReducer = (state, action) => {
             names: action.payload.names,
             surname: action.payload.surname,
             username: action.payload.username,
+            avatar: action.payload?.avatar,
          }
       case 'AUTH_LOGOUT':
          return {
@@ -20,6 +21,7 @@ export const authReducer = (state, action) => {
             names: undefined,
             surname: undefined,
             username: undefined,
+            avatr: action.payload.avatar
          }
       default:
          return state;

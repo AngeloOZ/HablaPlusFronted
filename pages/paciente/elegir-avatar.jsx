@@ -1,19 +1,33 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
 import { Box, Typography } from "@mui/material";
+
+import { AuthContext } from "../../Context";
 import { Avatar, ButtonPatient } from "../../Components";
 import { PatientLayout } from "../../Layouts";
+import { useUpdateAvatar } from "../../Hooks";
+
 import css from "../../styles/ElegirAvatar.module.scss";
 
-const ElegitAvatarPage = () => {
+const ElegitAvatarPage = ({ avatars }) => {
+  const router = useRouter()
+  const { verifyToken } = useContext(AuthContext);
+  const [avatar1, avatar2] = avatars;
   const [selectAvatar, setSelectAvatar] = useState(undefined);
+  const { updateAvatar } = useUpdateAvatar();
 
   const handleClickAvatar = (avatar) => {
     setSelectAvatar(avatar);
   };
 
-  const handleClickAceptar = () =>{
-    alert(selectAvatar);
-  }
+  const handleClickAceptar = async () => {
+    const result = await updateAvatar(selectAvatar.id_user_avatar);
+    if(result){
+      await verifyToken();
+      router.push('/paciente');
+    }
+  };
 
   return (
     <PatientLayout title="Elegir Avatar - Habla+">
@@ -21,18 +35,18 @@ const ElegitAvatarPage = () => {
         <Typography className={css.title}>Elege tu avatar</Typography>
         <Box component={"div"} className={css.contenedorAvatar}>
           <Avatar
-            src="http://localhost:3000/img/avatar2.1.png"
+            src={avatar1.url}
             className={`${css.customAvatar} ${
-              selectAvatar == 1 ? css.currentSelect : ""
+              selectAvatar?.id_avatar == 1 ? css.currentSelect : ""
             }`}
-            onClick={() => handleClickAvatar(1)}
+            onClick={() => handleClickAvatar(avatar1)}
           />
           <Avatar
-            src="http://localhost:3000/img/avatar1.png"
+            src={avatar2.url}
             className={`${css.customAvatar} ${
-              selectAvatar == 2 ? css.currentSelect : ""
+              selectAvatar?.id_avatar == 2 ? css.currentSelect : ""
             }`}
-            onClick={() => handleClickAvatar(2)}
+            onClick={() => handleClickAvatar(avatar2)}
           />
         </Box>
         <ButtonPatient
@@ -49,3 +63,28 @@ const ElegitAvatarPage = () => {
 };
 
 export default ElegitAvatarPage;
+
+export const getServerSideProps = async (ctx) => {
+  const { SESSION_ID } = ctx.req.cookies;
+  axios.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
+  axios.defaults.headers.common["Authorization"] = `Bearer ${SESSION_ID}`;
+
+  const {
+    data: { data: avatars },
+  } = await axios.get("/avatar/user");
+
+  const avatarsUser = avatars.filter((avatar) => {
+    if (
+      (avatar.id_avatar == 1 && avatar.reclaimed) ||
+      (avatar.id_avatar == 2 && avatar.reclaimed)
+    ) {
+      return avatar;
+    }
+  });
+
+  return {
+    props: {
+      avatars: avatarsUser,
+    },
+  };
+};

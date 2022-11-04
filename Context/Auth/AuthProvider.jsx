@@ -10,6 +10,7 @@ const AUTH_INITIAL_STATE = {
   username: undefined,
   names: undefined,
   surname: undefined,
+  avatar: undefined,
   id_type: undefined,
   id_user: undefined,
 };
@@ -29,6 +30,7 @@ export const AuthProvider = ({ children }) => {
         const { data: user } = await axios.post("/auth/verify-token", {
           token
         });
+        console.log(user);
         delete user.iat;
         dispatch({
           type: "AUTH_LOGIN",
@@ -111,6 +113,7 @@ export const AuthProvider = ({ children }) => {
         loginUser,
         logoutUser,
         registerUser,
+        verifyToken
       }}
     >
       {children}

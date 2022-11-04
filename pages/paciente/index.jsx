@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,8 +11,10 @@ import videoImageMenu from "../../public/img/menu/video.png";
 import palabrasImageMenu from "../../public/img/menu/palabras.png";
 import practicaImageMenu from "../../public/img/menu/practica.png";
 import oracionesImageMenu from "../../public/img/menu/oraciones.png";
+import { AuthContext } from "../../Context";
 
 const PageInicioPaciente = () => {
+  const { avatar } = useContext(AuthContext);
 
   function ButtonMenu({ url = "#", imagen }) {
     return (
@@ -28,14 +31,17 @@ const PageInicioPaciente = () => {
       <Box component="div" className={css.contenedorMenu}>
         <Box component={"div"} className={css.contenedorAvatar}>
           <CircleAvatar
-            srcImage={process.env.NEXT_PUBLIC_URL+"img/avatar1.png"}
+            srcImage={avatar}
             size="large"
           />
         </Box>
         <Box component="div" className={css.contenedorButtons}>
           <ButtonMenu url="/paciente/videos" imagen={videoImageMenu} />
           <ButtonMenu url="/paciente/vocabulario" imagen={palabrasImageMenu} />
-          <ButtonMenu url="/paciente/pronunciacion" imagen={practicaImageMenu} />
+          <ButtonMenu
+            url="/paciente/pronunciacion"
+            imagen={practicaImageMenu}
+          />
           <ButtonMenu url="/paciente/comprension" imagen={oracionesImageMenu} />
         </Box>
       </Box>

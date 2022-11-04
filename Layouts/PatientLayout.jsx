@@ -18,25 +18,25 @@ export const PatientLayout = ({
   urlToProfile = "/paciente",
   urlBackground = "fondo1.png",
 }) => {
-  const { logoutUser } = useContext(AuthContext);
+  const { logoutUser, avatar } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () =>{
+  const handleClose = () => {
     setAnchorEl(null);
-  }  
-  
+  };
+
   const handleClickLogout = () => {
     handleClose();
     logoutUser();
   };
-  
+
   const handleClickProfile = () => {
-    handleClose();    
+    handleClose();
   };
   return (
     <>
@@ -47,7 +47,7 @@ export const PatientLayout = ({
         <Box component={"div"} className={css.currentUser}>
           {currentUser ? (
             <CircleAvatar
-              srcImage={`${process.env.NEXT_PUBLIC_URL}img/avatar1.png`}
+              srcImage={avatar}
               hrefTo={urlToProfile}
             />
           ) : (
@@ -89,9 +89,30 @@ export const PatientLayout = ({
         </Link>
 
         {currentUser && configButton && (
-          <ButtonBase href="#" className={css.btnConfigButton}>
-            <Image src={configBtn} />
-          </ButtonBase>
+          <>
+            <ButtonBase
+              className={css.btnConfigButton}
+              id="basic-button2"
+              aria-controls={open ? "basic-menu2" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+            >
+              <Image src={configBtn} />
+            </ButtonBase>
+            <Menu
+              id="basic-menu2"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button2",
+              }}
+            >
+              <MenuItem onClick={handleClickProfile}>Perfil</MenuItem>
+              <MenuItem onClick={handleClickLogout}>Cerrar sesión</MenuItem>
+            </Menu>
+          </>
         )}
 
         <main className={css.main}>{children}</main>
