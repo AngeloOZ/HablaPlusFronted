@@ -8,6 +8,7 @@ import { AuthContext } from "../Context";
 
 import configBtn from "../public/img/botones/configBtn.png";
 import css from "../styles/PatientLayout.module.scss";
+import { useRouter } from "next/router";
 
 export const PatientLayout = ({
   title = "Habla+",
@@ -18,6 +19,7 @@ export const PatientLayout = ({
   urlToProfile = "/paciente",
   urlBackground = "fondo1.png",
 }) => {
+  const router = useRouter();
   const { logoutUser, avatar } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -37,6 +39,7 @@ export const PatientLayout = ({
 
   const handleClickProfile = () => {
     handleClose();
+    router.push('/paciente/editar-perfil')
   };
   return (
     <>

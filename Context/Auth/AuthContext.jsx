@@ -5,6 +5,7 @@ const AUTH_INITIAL_STATE = {
   username: undefined,
   names: undefined,
   surname: undefined,
+  age: undefined,
   avatar: undefined,
   id_type: undefined,
   id_user: undefined,

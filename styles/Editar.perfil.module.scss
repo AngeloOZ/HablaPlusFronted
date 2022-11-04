@@ -1,0 +1,86 @@
+@use "scss/variables" as *;
+
+.contenedorMain {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .subContenedor {
+    width: 100%;
+    max-width: 1100px;
+    height: 530px;
+    z-index: 10000000;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    justify-items: center;
+    align-items: center;
+  }
+  .avatarContainer{
+    width: 100%;
+    text-align: center;
+  }
+  
+  .inputsContainer{
+    width: 80%;
+    text-align: center;
+    // background-color: #fff;
+  }
+}
+.contenedorAvatars{
+  margin-top: 10px;
+}
+.itemAvatar{
+  margin-right: 8px;
+  display: inline-block;
+  width: 55px;
+  height: 80px;
+  cursor: not-allowed;
+  border: 3px solid #ccc;
+  pointer-events: none;
+  user-select: none;
+  overflow: hidden;
+  &:last-child{
+    margin-right: 0;
+  }
+  
+  &.reclaimed{
+    border: 3px solid $color-violeta-2;
+    cursor: pointer;
+    pointer-events: all;
+    .imgItem{
+      filter: grayscale(0);
+    }
+    &:hover{
+      border: 3px solid $color-violeta-1;
+    }
+  }
+  &.selected{
+    border: 3px solid crimson;
+  }
+
+  .imgItem{
+    user-select: none;
+    width: 100%;
+    height: 100%;
+    filter: grayscale(100%);
+  }
+}
+
+.buttonAvatar{
+  cursor: pointer;
+  margin-top: 5px;
+  border-radius: 20px;
+  border: none;
+  padding: 10px 20px;
+  background-color: $color-violeta-2;
+  &:hover{
+    background-color: $color-violeta-1;
+  }
+  &:active{
+    background-color: $color-violeta-1;
+    opacity: 0.9;
+  }
+}

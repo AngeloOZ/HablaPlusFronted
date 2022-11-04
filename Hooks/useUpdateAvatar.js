@@ -1,9 +1,15 @@
-import axios from 'axios';
-import { mutate } from 'swr';
+import { useContext } from 'react';
+import { useRouter } from 'next/router';
 import Cookies from "js-cookie";
-import { SweetAlert } from '../helpers';
+import { mutate } from 'swr';
+import axios from 'axios';
 
-export const useUpdateAvatar = () => {
+import { SweetAlert } from '../helpers';
+import { AuthContext } from '../Context';
+
+export const useUpdateAvatar = (redirect = true ) => {
+    const router = useRouter();
+    const { verifyToken } = useContext(AuthContext);
 
     const addAvatar = async (id_avatar) => {
         try {
@@ -25,6 +31,10 @@ export const useUpdateAvatar = () => {
             const { data: user } = await axios.put("avatar", { id_user_avatar });
             mutate("/avatar/user");
             Cookies.set("SESSION_ID", user.token, { expires: 1 });
+            await verifyToken();
+            if (redirect) {
+                router.push('/paciente');
+            }
             return true;
         } catch (error) {
             console.error(error);

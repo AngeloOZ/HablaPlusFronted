@@ -1,9 +1,8 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { Box, Typography } from "@mui/material";
 
-import { AuthContext } from "../../Context";
 import { Avatar, ButtonPatient } from "../../Components";
 import { PatientLayout } from "../../Layouts";
 import { useUpdateAvatar } from "../../Hooks";
@@ -11,11 +10,9 @@ import { useUpdateAvatar } from "../../Hooks";
 import css from "../../styles/ElegirAvatar.module.scss";
 
 const ElegitAvatarPage = ({ avatars }) => {
-  const router = useRouter()
-  const { verifyToken } = useContext(AuthContext);
   const [avatar1, avatar2] = avatars;
   const [selectAvatar, setSelectAvatar] = useState(undefined);
-  const { updateAvatar } = useUpdateAvatar();
+  const { updateAvatar } = useUpdateAvatar(true);
 
   const handleClickAvatar = (avatar) => {
     setSelectAvatar(avatar);
@@ -23,10 +20,7 @@ const ElegitAvatarPage = ({ avatars }) => {
 
   const handleClickAceptar = async () => {
     const result = await updateAvatar(selectAvatar.id_user_avatar);
-    if(result){
-      await verifyToken();
-      router.push('/paciente');
-    }
+    console.log(result);
   };
 
   return (
