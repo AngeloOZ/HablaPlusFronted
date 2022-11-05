@@ -33,6 +33,7 @@ export function success(config = confiSwal) {
       }
    })
 }
+
 export function error(config = confiSwal) {
    const defultConfigAlert = { ...confiSwal, ...config }
    return MySwal.fire({
@@ -47,6 +48,7 @@ export function error(config = confiSwal) {
       }
    })
 }
+
 export function deleteConfirm(config = confiSwal) {
    const defultConfigAlert = { ...confiSwal, ...config }
    return MySwal.fire({
@@ -64,6 +66,7 @@ export function deleteConfirm(config = confiSwal) {
       }
    })
 }
+
 export function successConfirm(config = confiSwal) {
    confiSwal.icon = "info"
    confiSwal.showCancelButton = true;
@@ -81,5 +84,16 @@ export function successConfirm(config = confiSwal) {
       didClose: () => {
          defultConfigAlert.onClose();
       }
+   })
+}
+
+export function alertAvatar() {
+   return MySwal.fire({
+      title: "Felicidades...!",
+      text: "Desbloqueaste un nuevo avatar",
+      html: "<h2>Hola mundo!</h2>",
+      timer: confiSwal.timer,
+      confirmButtonText: confiSwal.confirmButtonText,
+      confirmButtonColor: confiSwal.confirmButtonColor,
    })
 }

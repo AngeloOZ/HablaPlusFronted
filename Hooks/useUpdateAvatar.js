@@ -17,6 +17,10 @@ export const useUpdateAvatar = (redirect = true) => {
             mutate("/avatar/user");
             Cookies.set("SESSION_ID", user.token, { expires: 1 });
             await verifyToken();
+            await SweetAlert.success({
+                title: "Felicidades...!",
+                text: "Has desbloqueado un nuevo avatar!"
+            })
             router.push('/paciente');
             return true;
         } catch (error) {

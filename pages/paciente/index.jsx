@@ -12,6 +12,7 @@ import palabrasImageMenu from "../../public/img/menu/palabras.png";
 import practicaImageMenu from "../../public/img/menu/practica.png";
 import oracionesImageMenu from "../../public/img/menu/oraciones.png";
 import { AuthContext } from "../../Context";
+import { SweetAlert } from "../../helpers";
 
 const PageInicioPaciente = () => {
   const { avatar } = useContext(AuthContext);
@@ -26,16 +27,18 @@ const PageInicioPaciente = () => {
     );
   }
 
+  function click() {
+    SweetAlert.alertAvatar();
+  }
+
   return (
     <PatientLayout title="Inicio - Habla+">
       <Box component="div" className={css.contenedorMenu}>
         <Box component={"div"} className={css.contenedorAvatar}>
-          <CircleAvatar
-            srcImage={avatar}
-            size="large"
-          />
+          <CircleAvatar srcImage={avatar} size="large" />
         </Box>
         <Box component="div" className={css.contenedorButtons}>
+          {/* <button onClick={click}>click</button> */}
           <ButtonMenu url="/paciente/videos" imagen={videoImageMenu} />
           <ButtonMenu url="/paciente/vocabulario" imagen={palabrasImageMenu} />
           <ButtonMenu

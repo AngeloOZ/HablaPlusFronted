@@ -6,8 +6,10 @@ import ReactPlayer from "react-player";
 import css from "../../../styles/VideosPaciente.module.scss";
 import { PatientLayout } from "../../../Layouts";
 import { VideosYoutube } from "../../../helpers";
+import { useUpdateAvatar } from "../../../Hooks";
 
 const PageIdVideo = () => {
+  const { addAvatar } = useUpdateAvatar();
   const router = useRouter();
   const [listVideos, setListVideos] = useState([]);
   const [currentUrl, setCurrentUrl] = useState("");
@@ -56,6 +58,12 @@ const PageIdVideo = () => {
     });
   }, [listVideos]);
 
+  const handleFinishVideo = () => {
+    if (!videos.nextVideo) {
+      addAvatar(3);
+    }
+  };
+
   return (
     <PatientLayout
       currentUser
@@ -72,6 +80,7 @@ const PageIdVideo = () => {
             playing={playVideo}
             onReady={() => setPlayVideo(true)}
             onPause={() => setPlayVideo(false)}
+            onEnded={handleFinishVideo}
           />
         </Box>
         <Box component={"div"} className={css.contenedorControls}>
@@ -119,10 +128,8 @@ const PageIdVideo = () => {
 
 export default PageIdVideo;
 
-export const getServerSideProps = async ({req}) => {
+export const getServerSideProps = async ({ req }) => {
   return {
-    props: {
-      
-    }
-  }
-}
+    props: {},
+  };
+};
