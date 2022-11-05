@@ -7,15 +7,17 @@ import axios from 'axios';
 import { SweetAlert } from '../helpers';
 import { AuthContext } from '../Context';
 
-export const useUpdateAvatar = (redirect = true ) => {
+export const useUpdateAvatar = (redirect = true) => {
     const router = useRouter();
     const { verifyToken } = useContext(AuthContext);
 
     const addAvatar = async (id_avatar) => {
         try {
-            const { data: user } = await axios.post("sentences", id_avatar);
+            const { data: user } = await axios.post("avatar", { id_avatar });
             mutate("/avatar/user");
             Cookies.set("SESSION_ID", user.token, { expires: 1 });
+            await verifyToken();
+            router.push('/paciente');
             return true;
         } catch (error) {
             console.error(error);
@@ -46,5 +48,5 @@ export const useUpdateAvatar = (redirect = true ) => {
         }
     }
 
-    return { updateAvatar }
+    return { updateAvatar, addAvatar }
 }

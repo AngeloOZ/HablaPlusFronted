@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import { Box, ButtonBase, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -8,8 +8,10 @@ import { useWords } from "../../../../Components/Word/Hooks";
 import { ButtonPatient, Pictograma } from "../../../../Components";
 
 import css from "../../../../styles/PalabrasPaciente.module.scss";
+import { AuthContext } from "../../../../Context";
 
 const PagePalabraDinamic = ({ words, listWordsLearned }) => {
+  const authUser = useContext(AuthContext);
   const { current: currtentWord, next: nextWord } = words;
   const word = currtentWord.description.replaceAll("*", "");
 
@@ -27,7 +29,7 @@ const PagePalabraDinamic = ({ words, listWordsLearned }) => {
   };
 
   const handleClickNext = () => {
-    const data = { id_user: 1, id_word: currtentWord.id_word };
+    const data = { id_user: authUser.id_user, id_word: currtentWord.id_word };
     registerWordLearned(listWordsLearned, data)
       .then((response) => {
         setIsPlayed(false);

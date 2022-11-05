@@ -7,7 +7,12 @@ import { ButtonPatient } from "../../Paciente/ButtonPatient";
 import css from "../../../styles/Modals.repaso.module.scss";
 import gif from "./star-sad.gif";
 
-export const ModalFailed = ({ title = "Oops...", textBody = "Lo siento no has acertado" }) => {
+export const ModalFailed = ({
+  title = "Oops...",
+  onClick = () => {},
+  textBody = "Lo siento no has acertado",
+  textButton = "Volver a intentarlo",
+}) => {
   const reproductor = useRef(null);
   const { openModal, toogleModalState } = useContext(ModalContext);
 
@@ -15,12 +20,13 @@ export const ModalFailed = ({ title = "Oops...", textBody = "Lo siento no has ac
     if (openModal) {
       setTimeout(() => {
         reproductor.current.play();
-      }, 250);
+      }, 350);
     }
   }, [openModal]);
 
   const handleCloseModal = () => {
     toogleModalState(false);
+    onClick();
   };
 
   return (
@@ -53,8 +59,11 @@ export const ModalFailed = ({ title = "Oops...", textBody = "Lo siento no has ac
               <Image src={gif} />
             </Box>
             <Box className={css.contenedorButton}>
-              <ButtonPatient onClickC={handleCloseModal} className={css.buttonTryAgain}>
-                Volver a intentarlo
+              <ButtonPatient
+                onClickC={handleCloseModal}
+                className={css.buttonTryAgain}
+              >
+                {textButton}
               </ButtonPatient>
             </Box>
           </Box>

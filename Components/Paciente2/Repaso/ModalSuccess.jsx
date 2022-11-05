@@ -7,7 +7,7 @@ import { ButtonPatient } from "../../Paciente/ButtonPatient";
 import css from "../../../styles/Modals.repaso.module.scss";
 import gif from "./star-happy.gif";
 
-export const ModalSuccess = ({ textButton, handleClickNext }) => {
+export const ModalSuccess = ({ textButton, handleClickNext = () => {} }) => {
   const reproductor = useRef(null);
   const { openModal, toogleModalState } = useContext(ModalContext);
 
@@ -15,9 +15,14 @@ export const ModalSuccess = ({ textButton, handleClickNext }) => {
     if (openModal) {
       setTimeout(() => {
         reproductor.current.play();
-      }, 250);
+      }, 350);
     }
   }, [openModal]);
+
+  const handleClickButton = () => {
+    toogleModalState();
+    handleClickNext();
+  };
 
   return (
     <Modal
@@ -46,7 +51,10 @@ export const ModalSuccess = ({ textButton, handleClickNext }) => {
               <Image src={gif} />
             </Box>
             <Box className={css.contenedorButton}>
-              <ButtonPatient onClickC={handleClickNext} className={css.buttonNext}>
+              <ButtonPatient
+                onClickC={handleClickButton}
+                className={css.buttonNext}
+              >
                 {textButton}
               </ButtonPatient>
             </Box>
