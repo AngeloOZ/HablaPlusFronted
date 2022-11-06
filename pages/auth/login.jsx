@@ -32,7 +32,7 @@ const LoginPage = () => {
         text: "El usuario o la contraseña no son correctos",
       });
     }
-
+    console.log(login)
     if (login.id_type == 1) {
       router.push("/admin");
     } else {
