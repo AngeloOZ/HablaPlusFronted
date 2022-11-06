@@ -8,7 +8,6 @@ export const AccordionWords = ({ category }) => {
       <AccordionSummary
         expandIcon={<ExpandMore />}
         aria-controls="panel1a-content"
-        id="panel1a-header"
       >
         <Typography textTransform={"capitalize"}>
           {category.description}

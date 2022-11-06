@@ -63,7 +63,7 @@ export const PatientLayout = ({
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
               >
-                <Image src={configBtn} />
+                <Image src={configBtn} alt="Habla+" />
               </ButtonBase>
               <Menu
                 id="basic-menu"

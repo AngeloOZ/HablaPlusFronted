@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Link from "next/link";
 import { Box, ButtonBase } from "@mui/material";
 import axios from "axios";
@@ -5,6 +6,30 @@ import { PatientLayout } from "../../../Layouts";
 import css from "../../../styles/PalabrasPaciente.module.scss";
 
 const PagePacienteCategoria = ({ categories }) => {
+  useEffect(() => {
+    saveInfoSettingVocabularios(categories);
+  }, []);
+
+  function saveInfoSettingVocabularios(array) {
+    if (array.length != 0) {
+      const settingText = localStorage.getItem("settingRepaso");
+      if (settingText) {
+        try {
+          const setting = JSON.parse(settingText);
+          setting.total = array.length;
+        } catch (error) {
+          localStorage.removeItem("settingRepaso");
+          saveInfoSettingVocabularios(array);
+        }
+      } else {
+        const setting = {
+          total: array.length,
+          repasado: 0,
+        };
+        localStorage.setItem("settingRepaso", JSON.stringify(setting));
+      }
+    }
+  }
   function ButtonsCategorias({ category = undefined, image }) {
     let url = "#";
     if (category) {
@@ -19,6 +44,7 @@ const PagePacienteCategoria = ({ categories }) => {
           <Box
             component={"img"}
             src={image}
+            alt="Habla+"
             className={css.buttonCategoriasImage}
           />
         </ButtonBase>

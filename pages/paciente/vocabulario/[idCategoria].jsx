@@ -46,10 +46,13 @@ export default PageCategoriaDinamic;
 
 export const getServerSideProps = async ({ params }) => {
   try {
+    const { SESSION_ID } = req.cookies;
+    axios.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
+    axios.defaults.headers.common["Authorization"] = `Bearer ${SESSION_ID}`;
+
     const { idCategoria } = params;
     const base64Category = atob(idCategoria);
     const category = JSON.parse(base64Category);
-    axios.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
     const { data } = await axios.get(
       `/category/${category.id_category}/words?limit=1`
     );

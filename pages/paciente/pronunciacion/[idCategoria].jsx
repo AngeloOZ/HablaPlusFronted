@@ -31,10 +31,17 @@ const PageCategoriaDinamic = ({ category, word }) => {
       urlBackground="fondo4.png"
     >
       <Box component={"div"} className={css.contenedorPalabraCat}>
-        <Typography component={"h1"} variant="h1" className={`${css.titleStart} ${css.red}`}>
+        <Typography
+          component={"h1"}
+          variant="h1"
+          className={`${css.titleStart} ${css.red}`}
+        >
           Empecemos el repaso sobre <span>{category.description}</span>
         </Typography>
-        <ButtonPatient className={`${css.botonStart} ${css.red}`} onClickC={handleClick}>
+        <ButtonPatient
+          className={`${css.botonStart} ${css.red}`}
+          onClickC={handleClick}
+        >
           Empezar sección
         </ButtonPatient>
       </Box>
@@ -44,9 +51,11 @@ const PageCategoriaDinamic = ({ category, word }) => {
 
 export default PageCategoriaDinamic;
 
-export const getServerSideProps = async ({ params }) => {
+export const getServerSideProps = async ({ req, params }) => {
   try {
+    const { SESSION_ID } = req.cookies;
     axios.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
+    axios.defaults.headers.common["Authorization"] = `Bearer ${SESSION_ID}`;
 
     const { idCategoria } = params;
     const base64Category = atob(idCategoria);
@@ -67,9 +76,10 @@ export const getServerSideProps = async ({ params }) => {
       },
     };
   } catch (error) {
+    console.log(error)
     return {
       redirect: {
-        destination: "/paciente/repaso",
+        destination: "/paciente/pronunciacion",
         permanent: false,
       },
     };

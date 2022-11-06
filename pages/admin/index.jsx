@@ -14,7 +14,7 @@ const AdminPage = () => {
   const { videos, isLoading } = useGetVideos();
 
   return (
-    <AdminLayouts>
+    <AdminLayouts titlePage="Videos">
       <Box
         component={"div"}
         width="100%"

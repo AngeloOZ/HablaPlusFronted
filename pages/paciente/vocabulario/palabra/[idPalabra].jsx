@@ -9,9 +9,11 @@ import { ButtonPatient, Pictograma } from "../../../../Components";
 
 import css from "../../../../styles/PalabrasPaciente.module.scss";
 import { AuthContext } from "../../../../Context";
+import { useUpdateAvatar } from "../../../../Hooks";
 
 const PagePalabraDinamic = ({ words, listWordsLearned }) => {
   const authUser = useContext(AuthContext);
+  const { addAvatar } = useUpdateAvatar();
   const { current: currtentWord, next: nextWord } = words;
   const word = currtentWord.description.replaceAll("*", "");
 
@@ -23,6 +25,23 @@ const PagePalabraDinamic = ({ words, listWordsLearned }) => {
   useEffect(() => {
     reproductoRef.current?.addEventListener("ended", () => setIsPlayed(true));
   }, []);
+
+  async function updateSetting() {
+    const settingText = localStorage.getItem("settingRepaso");
+    if (settingText) {
+      try {
+        const setting = JSON.parse(settingText);
+        setting.repasado = setting.repasado + 1;
+        localStorage.setItem("settingRepaso", JSON.stringify(setting));
+
+        if (setting.repasado == setting.total) {
+          await addAvatar(4);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
 
   const handleClickPlay = () => {
     reproductoRef.current.play();
@@ -42,9 +61,10 @@ const PagePalabraDinamic = ({ words, listWordsLearned }) => {
   };
 
   const handleClickFinish = () => {
-    const data = { id_user: 1, id_word: currtentWord.id_word };
+    const data = { id_user: authUser.id_user, id_word: currtentWord.id_word };
     registerWordLearned(listWordsLearned, data)
       .then((response) => {
+        updateSetting();
         router.push(`/paciente/vocabulario`);
       })
       .catch((error) => {
@@ -109,12 +129,15 @@ const PagePalabraDinamic = ({ words, listWordsLearned }) => {
 
 export default PagePalabraDinamic;
 
-export const getServerSideProps = async ({ params }) => {
+export const getServerSideProps = async ({ req, params }) => {
   try {
+    const { SESSION_ID } = req.cookies;
     axios.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
+    axios.defaults.headers.common["Authorization"] = `Bearer ${SESSION_ID}`;
+
     const idWord = params.idPalabra;
     const { data } = await axios.get(`/word/unique/${idWord}`);
-    const { data: listWordsLearned } = await axios.get(`/word_learned/user/1`);
+    const { data: listWordsLearned } = await axios.get(`/word_learned`);
     const words = data.data;
     return {
       props: {
@@ -123,9 +146,10 @@ export const getServerSideProps = async ({ params }) => {
       },
     };
   } catch (error) {
+    console.log(error);
     return {
       redirect: {
-        destination: "/paciente/vocabulario",
+        destination: "/paciente/pronunciacion",
         permanent: false,
       },
     };

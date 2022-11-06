@@ -9,6 +9,7 @@ import {
   ListAlt,
   Spellcheck,
   Logout,
+  People
 } from "@mui/icons-material";
 import { ItemSideMenu } from "./ItemSideMenu";
 import { useRouter } from "next/router";
@@ -35,6 +36,11 @@ const listSideMenu = [
     text: "Oraciones de repaso",
     icon: <Spellcheck />,
     url: "/admin/repaso-palabras",
+  },
+  {
+    text: "Lista de usuarios",
+    icon: <People />,
+    url: "/admin/usuarios",
   },
 ];
 

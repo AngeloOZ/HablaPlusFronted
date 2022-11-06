@@ -27,7 +27,7 @@ export const useUpdateAvatar = (redirect = true) => {
             console.error(error);
             await SweetAlert.error({
                 title: "Oops...",
-                text: "Hubo un error al guardar tu avatar, intentelo de nuevo"
+                text: "Hubo un error al guardar tu avatar o es posible que ya lo tengas, intentelo de nuevo"
             })
             return false;
         }

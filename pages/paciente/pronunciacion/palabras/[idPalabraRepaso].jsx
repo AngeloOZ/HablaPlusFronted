@@ -9,10 +9,11 @@ import { ModalContext } from "../../../../Context";
 
 import css from "../../../../styles/PalabrasPaciente.module.scss";
 import { useSpeechRecognition } from "../../../../Hooks/useSpeechRecognition";
+import { useUpdateAvatar } from "../../../../Hooks";
 
 const PagePalabraDinamic = ({ words }) => {
   const router = useRouter();
-
+  const { addAvatar } = useUpdateAvatar();
   const { toogleModalState } = useContext(ModalContext);
   const { current: currentWord, next: nextWord } = words;
   const word = currentWord.description.replaceAll("*", "");
@@ -89,12 +90,30 @@ const PagePalabraDinamic = ({ words }) => {
     setAnimatedInit(!animatedInit);
   };
 
-  const handleClickNextWordModal = () => {
+  async function updateSetting() {
+    const settingText = localStorage.getItem("settingPronunciacion");
+    if (settingText) {
+      try {
+        const setting = JSON.parse(settingText);
+        setting.repasado = setting.repasado + 1;
+        localStorage.setItem("settingPronunciacion", JSON.stringify(setting));
+
+        if (setting.repasado == setting.total) {
+          await addAvatar(5);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+
+  const handleClickNextWordModal = async () => {
     toogleModalState(false);
     if (nextWord) {
       setModalState({ success: false, failed: false });
       router.push(`/paciente/pronunciacion/palabras/${nextWord.id_unique}`);
     } else {
+      await updateSetting()
       router.push(`/paciente/pronunciacion`);
     }
   };
@@ -156,9 +175,12 @@ const PagePalabraDinamic = ({ words }) => {
 
 export default PagePalabraDinamic;
 
-export const getServerSideProps = async ({ params }) => {
+export const getServerSideProps = async ({ req, params }) => {
   try {
+    const { SESSION_ID } = req.cookies;
     axios.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
+    axios.defaults.headers.common["Authorization"] = `Bearer ${SESSION_ID}`;
+    
     const idWord = params.idPalabraRepaso;
     const { data } = await axios.get(`/word/unique/${idWord}`);
     const words = data.data;
