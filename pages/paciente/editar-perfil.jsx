@@ -1,5 +1,9 @@
 import { Box } from "@mui/material";
-import { CambiarAvatar, FormEditarPerfil } from "../../Components";
+import {
+  CambiarAvatar,
+  FormEditarPerfil,
+  LoaderPatient,
+} from "../../Components";
 import { useGetAvatars } from "../../Components";
 import { PatientLayout } from "../../Layouts";
 
@@ -12,7 +16,11 @@ const PageEditarPerfil = () => {
       <Box component="div" className={css.contenedorMain}>
         <div className={css.subContenedor}>
           <div className={css.avatarContainer}>
-            {!isLoading && <CambiarAvatar avatars={avatars || []} />}
+            {isLoading ? (
+              <LoaderPatient />
+            ) : (
+              <CambiarAvatar avatars={avatars || []} />
+            )}
           </div>
           <div className={css.inputsContainer}>
             <FormEditarPerfil />

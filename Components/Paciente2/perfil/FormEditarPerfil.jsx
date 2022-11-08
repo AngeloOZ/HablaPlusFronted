@@ -5,6 +5,8 @@ import { AuthContext } from "../../../Context";
 import { ButtonPatient, InputPatient } from "../../Paciente";
 import { useUsuarios } from "../../Usuarios";
 
+import css from "../../../styles/Editar.perfil.module.scss";
+
 export const FormEditarPerfil = () => {
   const { updateUserClient } = useUsuarios();
 
@@ -27,7 +29,7 @@ export const FormEditarPerfil = () => {
 
     const response = await updateUserClient(data);
     if (response) await userAuth.verifyToken();
-    setValue("newPassword","")
+    setValue("newPassword", "");
     setReadOnly(true);
   };
   return (
@@ -116,10 +118,15 @@ export const FormEditarPerfil = () => {
           type="submit"
           disabled={!readOnly}
           onClickC={updateStateReadOnly}
+          className={css.buttonPerfil}
         >
           Editar
         </ButtonPatient>
-        <ButtonPatient type="submit" disabled={readOnly}>
+        <ButtonPatient
+          type="submit"
+          disabled={readOnly}
+          className={css.buttonPerfil}
+        >
           Actualizar
         </ButtonPatient>
       </Box>
