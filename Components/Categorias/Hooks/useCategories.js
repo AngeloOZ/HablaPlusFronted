@@ -5,14 +5,15 @@ import { SweetAlert } from "../../../helpers";
 export const useCategories = () => {
 
    const addCategory = async (category) => {
-      const formData = new FormData();
-      formData.append("file", category.iconFile[0]);
       const bodyData = {
          description: category.description,
          icon: undefined,
+         icon2: undefined,
       };
 
       try {
+         const formData = new FormData();
+         formData.append("file", category.iconFile[0]);
          const { data } = await axios.post("/file/image/category", formData, {
             headers: {
                "Content-Type": "multipart/form-data",
@@ -26,6 +27,26 @@ export const useCategories = () => {
             text: "Hubo un error al cargar la imagén, inténtelo de nuevo"
          })
          throw error;
+      }
+
+      if (category.iconFile2?.length > 0) {
+         try {
+            const formData = new FormData();
+            formData.append("file", category.iconFile2[0]);
+            const { data } = await axios.post("/file/image/category", formData, {
+               headers: {
+                  "Content-Type": "multipart/form-data",
+               },
+            });
+            bodyData.icon2 = data.url;
+         } catch (error) {
+            resetForm();
+            console.error(data);
+            SweetAlert.error({
+               title: "Oops...",
+               text: "Hubo un error al cargar la imagén, inténtelo de nuevo"
+            })
+         }
       }
 
       try {
@@ -49,19 +70,39 @@ export const useCategories = () => {
          id_category: category.id_category,
          description: category.description,
          icon: category.icon,
+         icon2: category.icon2,
       };
 
       if (category.iconFile?.length > 0) {
-         const formData = new FormData();
-         formData.append("file", category.iconFile[0]);
-
          try {
+            const formData = new FormData();
+            formData.append("file", category.iconFile[0]);
             const { data } = await axios.post("/file/image/category", formData, {
                headers: {
                   "Content-Type": "multipart/form-data",
                },
             });
             bodyData.icon = data.url;
+         } catch (error) {
+            resetForm();
+            console.error(data);
+            SweetAlert.error({
+               title: "Oops...",
+               text: "Hubo un error al cargar la imagén, inténtelo de nuevo"
+            })
+         }
+      }
+
+      if (category.iconFile2?.length > 0) {
+         try {
+            const formData = new FormData();
+            formData.append("file", category.iconFile2[0]);
+            const { data } = await axios.post("/file/image/category", formData, {
+               headers: {
+                  "Content-Type": "multipart/form-data",
+               },
+            });
+            bodyData.icon2 = data.url;
          } catch (error) {
             resetForm();
             console.error(data);

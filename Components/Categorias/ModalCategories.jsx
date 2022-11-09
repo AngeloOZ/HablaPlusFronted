@@ -37,6 +37,7 @@ export const ModalCategories = ({
   const { addCategory, updateCategory } = useCategories();
   const title = isEdit ? "Editar categoria" : "Agregar categoria";
   const [editFile, setEditFile] = useState(false);
+  const [editFile2, setEditFile2] = useState(false);
 
   const {
     register,
@@ -51,6 +52,7 @@ export const ModalCategories = ({
     if (initDataForm) {
       setValue("description", initDataForm.description);
       setValue("icon", initDataForm.icon);
+      setValue("icon2", initDataForm.icon2);
       setValue("id_category", initDataForm.id_category);
     }
   }, [initDataForm, setValue, reset]);
@@ -59,6 +61,7 @@ export const ModalCategories = ({
     if (isEdit) {
       updateCategory(data, handleCancel);
       setEditFile(false);
+      setEditFile2(false);
       setIsEdit(false);
     } else {
       addCategory(data);
@@ -70,6 +73,7 @@ export const ModalCategories = ({
   const handleCancel = () => {
     reset();
     setEditFile(false);
+    setEditFile2(false);
     setIsEdit(false);
     setOpen(false);
   };
@@ -154,22 +158,79 @@ export const ModalCategories = ({
                       />
                     </Grid>
                   )}
+                  <Box component={"div"}>
+                    <FormControlLabel
+                      sx={{ marginTop: 1 }}
+                      control={<Switch color="primary" />}
+                      label="Subir archivo 2"
+                      labelPlacement="start"
+                      onChange={() => {
+                        setEditFile2(!editFile2);
+                      }}
+                    />
+                  </Box>
+                  {editFile2 ? (
+                    <Grid item xs={12}>
+                      <InputLabel margin="dense">Subir imagén</InputLabel>
+                      <TextField
+                        type={"file"}
+                        variant="standard"
+                        margin="dense"
+                        required
+                        {...register("iconFile2", {
+                          required: "La imagén de la categoria es necesaria",
+                        })}
+                        error={!!errors.iconFile}
+                        helperText={errors.iconFile?.message}
+                      />
+                    </Grid>
+                  ) : (
+                    <Grid item xs={12}>
+                      <TextField
+                        label="Url de la imagén"
+                        variant="outlined"
+                        required
+                        fullWidth
+                        {...register("icon2", {
+                          required: "La url de la imagén es necesaria",
+                        })}
+                        error={!!errors.icon}
+                        helperText={errors.icon?.message}
+                      />
+                    </Grid>
+                  )}
                 </>
               ) : (
-                <Grid item xs={12}>
-                  <InputLabel margin="dense">Subir imagén</InputLabel>
-                  <TextField
-                    type={"file"}
-                    variant="standard"
-                    margin="dense"
-                    required
-                    {...register("iconFile", {
-                      required: "La imagén de la categoria es necesaria",
-                    })}
-                    error={!!errors.iconFile}
-                    helperText={errors.iconFile?.message}
-                  />
-                </Grid>
+                <>
+                  <Grid item xs={12}>
+                    <InputLabel margin="dense">Subir imagén</InputLabel>
+                    <TextField
+                      type={"file"}
+                      variant="standard"
+                      margin="dense"
+                      required
+                      {...register("iconFile", {
+                        required: "La imagén de la categoria es necesaria",
+                      })}
+                      error={!!errors.iconFile}
+                      helperText={errors.iconFile?.message}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <InputLabel margin="dense">Subir imagén 2</InputLabel>
+                    <TextField
+                      type={"file"}
+                      variant="standard"
+                      margin="dense"
+                      required
+                      {...register("iconFile2", {
+                        required: "La imagén de la categoria es necesaria",
+                      })}
+                      error={!!errors.iconFile}
+                      helperText={errors.iconFile?.message}
+                    />
+                  </Grid>
+                </>
               )}
               <Grid item xs={12} mt={1}>
                 <Button type="submit" size="medium" fullWidth>
