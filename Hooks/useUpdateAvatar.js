@@ -19,7 +19,7 @@ export const useUpdateAvatar = (redirect = true) => {
             await verifyToken();
             await SweetAlert.success({
                 title: "Felicidades...!",
-                text: "Has desbloqueado un nuevo avatar!"
+                text: "¡Has desbloqueado un nuevo avatar!"
             })
             router.push('/paciente');
             return true;
@@ -46,7 +46,7 @@ export const useUpdateAvatar = (redirect = true) => {
             console.error(error);
             await SweetAlert.error({
                 title: "Oops...",
-                text: "Hubo un error al guardar tu avatar, intentelo de nuevo"
+                text: "Hubo un error al guardar tu avatar, inténtelo de nuevo"
             })
             return false;
         }

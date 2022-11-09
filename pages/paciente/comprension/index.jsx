@@ -29,7 +29,7 @@ const PageIndexComprension = () => {
         } else {
           SweetAlert.error({
             title: "Oops...!",
-            text: "Parece que aun no has revisado las secciones anteriores",
+            text: "Parece que aún no has revisado las secciones anteriores",
             onClose: redirectHome,
           });
         }
@@ -61,7 +61,7 @@ const PageIndexComprension = () => {
         {listSentences && listSentences.length != 0 ? (
           <>
             <Typography component={"h1"} className={css.titleMain}>
-              Que empiece el repaso de ...
+              ¿Estás listo para poner a prueba tu conocimiento?
             </Typography>
             <ButtonPatient
               className={css.buttonMain}

@@ -19,7 +19,6 @@ export const CambiarAvatar = ({ avatars }) => {
 
   const handleClickButtonAvatar = async () => {
     const result = await updateAvatar(currentAvatar.id_user_avatar);
-    console.log(result);
   };
 
   return (

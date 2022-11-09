@@ -23,7 +23,7 @@ export const useCategories = () => {
          console.error(error);
          SweetAlert.error({
             title: "Oops...",
-            text: "Hubo un error al cargar la imagén, intentelo de nuevo"
+            text: "Hubo un error al cargar la imagén, inténtelo de nuevo"
          })
          throw error;
       }
@@ -33,13 +33,13 @@ export const useCategories = () => {
          mutate("/category");
          SweetAlert.success({
             title: "Registro exitoso",
-            text: "La categoria se registro correctamente"
+            text: "La categoría se registró correctamente"
          })
       } catch (error) {
          console.error(error);
          SweetAlert.error({
             title: "Oops...",
-            text: "Hubo un error al registrar la categoria, intentelo de nuevo"
+            text: "Hubo un error al registrar la categoría, inténtelo de nuevo"
          })
       }
    }
@@ -67,7 +67,7 @@ export const useCategories = () => {
             console.error(data);
             SweetAlert.error({
                title: "Oops...",
-               text: "Hubo un error al cargar la imagén, intentelo de nuevo"
+               text: "Hubo un error al cargar la imagén, inténtelo de nuevo"
             })
          }
       }
@@ -77,14 +77,14 @@ export const useCategories = () => {
          mutate("/category");
          SweetAlert.success({
             title: "Actualización exitosa",
-            text: "La categoria se actualizó correctamente"
+            text: "La categoría se actualizó correctamente"
          })
       } catch (error) {
          resetForm();
          console.error(error);
          SweetAlert.error({
             title: "Oops...",
-            text: "Hubo un error al actualizar la categoria, intentelo de nuevo"
+            text: "Hubo un error al actualizar la categoría, inténtelo de nuevo"
          })
       }
    }
@@ -95,14 +95,14 @@ export const useCategories = () => {
          mutate("/category");
          SweetAlert.success({
             title: "Eliminación exitosa",
-            text: "La categoria se elimino correctamente"
+            text: "La categoría se eliminó correctamente"
          })
       } catch (error) {
          resetForm();
          console.error(error);
          SweetAlert.error({
             title: "Oops...",
-            text: "Hubo un error al eliminar la categoria, intentelo de nuevo"
+            text: "Hubo un error al eliminar la categoría, inténtelo de nuevo"
          })
       }
    }

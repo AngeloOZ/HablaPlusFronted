@@ -9,7 +9,7 @@ const AUTH_INITIAL_STATE = {
   avatar: undefined,
   id_type: undefined,
   id_user: undefined,
-  loginUser: () => {},
+  loginUser: async () => {},
   logoutUser: () => {},
   registerUser: () => {},
   verifyToken: () => {},

@@ -77,7 +77,7 @@ export function successConfirm(config = confiSwal) {
       icon: defultConfigAlert.icon,
       timer: defultConfigAlert.timer,
       confirmButtonText: defultConfigAlert.confirmButtonText,
-      confirmButtonColor: defultConfigAlert.confirmButtonColor,
+      confirmButtonColor: "#28a745",
       showCancelButton: defultConfigAlert.showCancelButton,
       cancelButtonColor: defultConfigAlert.cancelButtonColor,
       cancelButtonText: defultConfigAlert.cancelButtonText,

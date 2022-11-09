@@ -24,19 +24,19 @@ const LoginPage = () => {
 
   const handleLoginUser = async (user) => {
     const login = await loginUser(user);
+
     if (login.hasError) {
       console.error(login);
       reset();
       return SweetAlert.error({
         title: "Oops...",
-        text: "El usuario o la contraseña no son correctos",
+        text: "El usuario o la contraseña son incorrectos",
       });
     }
-    console.log(login)
     if (login.id_type == 1) {
-      router.push("/admin");
+      return router.push("/admin");
     } else {
-      router.push("/paciente");
+      return router.push("/paciente");
     }
   };
 
@@ -79,12 +79,12 @@ const LoginPage = () => {
               helperText={errors.password?.message}
             />
             <ButtonPatient className={css.buttonLogin} type="submit">
-              Iniciar seción
+              Iniciar sesión
             </ButtonPatient>
           </form>
         </Box>
         <Link href="/auth/register">
-          <a className={css.linkAlter}>¿No tienes cuenta? registrate</a>
+          <a className={css.linkAlter}>¿No tienes cuenta? regístrate</a>
         </Link>
       </Box>
     </LoginLayout>

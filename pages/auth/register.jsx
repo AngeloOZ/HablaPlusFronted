@@ -32,7 +32,7 @@ const RegisterPage = () => {
         text: "Hubo un error al registrar el usuario",
       });
     }
-    router.push("/paciente/elegir-avatar");
+    return router.push("/paciente/elegir-avatar");
   };
 
   return (

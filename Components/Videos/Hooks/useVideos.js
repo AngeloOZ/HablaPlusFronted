@@ -10,13 +10,13 @@ export const useVideos = () => {
          mutate("/video");
          SweetAlert.success({
             title: "Registro exitoso",
-            text: "El video se registro correctamente"
+            text: "El video se registró correctamente"
          })
       } catch (error) {
          console.error(error);
          SweetAlert.error({
             title: "Oops...",
-            text: "Hubo un error al registrar el video, intentelo de nuevo"
+            text: "Hubo un error al registrar el video, inténtelo de nuevo"
          })
       }
    }
@@ -26,7 +26,7 @@ export const useVideos = () => {
          await axios.put("video", video);
          mutate("/video");
          SweetAlert.success({
-            title: "Actualización exitoso",
+            title: "Actualización exitosa",
             text: "El video se actualizó correctamente"
          })
       } catch (error) {
@@ -34,7 +34,7 @@ export const useVideos = () => {
          console.error(error);
          SweetAlert.error({
             title: "Oops...",
-            text: "Hubo un error al actualizar el video, intentelo de nuevo"
+            text: "Hubo un error al actualizar el video, inténtelo de nuevo"
          })
       }
    }
@@ -45,14 +45,14 @@ export const useVideos = () => {
          mutate("/video");
          SweetAlert.success({
             title: "Eliminación exitosa",
-            text: "El video se elimino correctamente"
+            text: "El video se eliminó correctamente"
          })
       } catch (error) {
          resetForm();
          console.error(error);
          SweetAlert.error({
             title: "Oops...",
-            text: "Hubo un error al eliminar el video, intentelo de nuevo"
+            text: "Hubo un error al eliminar el video, inténtelo de nuevo"
          })
       }
    }

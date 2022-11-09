@@ -34,7 +34,7 @@ export const useWords = () => {
          console.error(error);
          SweetAlert.error({
             title: "Oops...",
-            text: "Hubo un error al cargar la imagén, intentelo de nuevo"
+            text: "Hubo un error al cargar la imagén, inténtelo de nuevo"
          })
          throw error;
          return;
@@ -53,7 +53,7 @@ export const useWords = () => {
          console.error(error);
          SweetAlert.error({
             title: "Oops...",
-            text: "Hubo un error al cargar el audio, intentelo de nuevo"
+            text: "Hubo un error al cargar el audio, inténtelo de nuevo"
          })
          throw error;
          return;
@@ -64,13 +64,13 @@ export const useWords = () => {
          mutate(`/category/${word.id_category}/words`);
          SweetAlert.success({
             title: "Registro exitoso",
-            text: "La palabra se registro correctamente"
+            text: "La palabra se registró correctamente"
          })
       } catch (error) {
          console.error(error);
          SweetAlert.error({
             title: "Oops...",
-            text: "Hubo un error al registrar la palabra, intentelo de nuevo"
+            text: "Hubo un error al registrar la palabra, inténtelo de nuevo"
          })
          throw error;
       }
@@ -101,7 +101,7 @@ export const useWords = () => {
             console.error(error);
             SweetAlert.error({
                title: "Oops...",
-               text: "Hubo un error al cargar la imagén, intentelo de nuevo"
+               text: "Hubo un error al cargar la imagén, inténtelo de nuevo"
             })
             return;
          }
@@ -122,7 +122,7 @@ export const useWords = () => {
             console.error(error);
             SweetAlert.error({
                title: "Oops...",
-               text: "Hubo un error al cargar el audio, intentelo de nuevo"
+               text: "Hubo un error al cargar el audio, inténtelo de nuevo"
             })
             return;
          }
@@ -140,7 +140,7 @@ export const useWords = () => {
          console.error(error);
          SweetAlert.error({
             title: "Oops...",
-            text: "Hubo un error al actualizar la palabra, intentelo de nuevo"
+            text: "Hubo un error al actualizar la palabra, inténtelo de nuevo"
          })
       }
    }
@@ -151,13 +151,13 @@ export const useWords = () => {
          mutate(`/category/${word.id_category}/words`);
          SweetAlert.success({
             title: "Eliminación exitosa",
-            text: "La palabra se elimino correctamente"
+            text: "La palabra se eliminó correctamente"
          })
       } catch (error) {
          console.error(error);
          SweetAlert.error({
             title: "Oops...",
-            text: "Hubo un error al eliminar la palabra, intentelo de nuevo"
+            text: "Hubo un error al eliminar la palabra, inténtelo de nuevo"
          })
       }
    }

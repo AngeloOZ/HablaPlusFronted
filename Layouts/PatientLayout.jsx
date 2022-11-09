@@ -9,6 +9,7 @@ import { AuthContext } from "../Context";
 import configBtn from "../public/img/botones/configBtn.png";
 import css from "../styles/PatientLayout.module.scss";
 import { useRouter } from "next/router";
+import { SweetAlert } from "../helpers";
 
 export const PatientLayout = ({
   title = "Habla+",
@@ -32,14 +33,18 @@ export const PatientLayout = ({
     setAnchorEl(null);
   };
 
-  const handleClickLogout = () => {
+  const handleClickLogout = async () => {
     handleClose();
-    logoutUser();
+    const result = await SweetAlert.successConfirm({
+      title: "Cerrar sesión",
+      text: "¿Estás seguro de cerrar la sesión?",
+    });
+    if (result.isConfirmed) logoutUser();
   };
 
   const handleClickProfile = () => {
     handleClose();
-    router.push('/paciente/editar-perfil')
+    router.push("/paciente/editar-perfil");
   };
   return (
     <>
@@ -49,10 +54,7 @@ export const PatientLayout = ({
       <div className={css.contenedorPadre}>
         <Box component={"div"} className={css.currentUser}>
           {currentUser ? (
-            <CircleAvatar
-              srcImage={avatar}
-              hrefTo={urlToProfile}
-            />
+            <CircleAvatar srcImage={avatar} hrefTo={urlToProfile} />
           ) : (
             <>
               <ButtonBase

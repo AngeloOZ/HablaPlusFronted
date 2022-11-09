@@ -44,7 +44,7 @@ const PageCategoriaDinamic = ({ category, word }) => {
 
 export default PageCategoriaDinamic;
 
-export const getServerSideProps = async ({ params }) => {
+export const getServerSideProps = async ({ req, params }) => {
   try {
     const { SESSION_ID } = req.cookies;
     axios.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
@@ -68,6 +68,7 @@ export const getServerSideProps = async ({ params }) => {
       },
     };
   } catch (error) {
+    console.log(error)
     return {
       redirect: {
         destination: "/paciente/vocabulario",

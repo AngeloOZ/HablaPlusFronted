@@ -19,7 +19,7 @@ export const useUsuarios = () => {
             console.error(error);
             SweetAlert.error({
                 title: "Oops...",
-                text: "Hubo un error al actualizar los datos, intentelo de nuevo"
+                text: "Hubo un error al actualizar los datos, inténtelo de nuevo"
             })
             return false;
         }

@@ -56,7 +56,7 @@ export const TableWord = ({ category }) => {
   if (words?.length == 0) {
     return (
       <Box component={"div"}>
-        <Typography>No hay palabras registradas </Typography>
+        <Typography>No hay palabras registradas</Typography>
       </Box>
     );
   }
@@ -71,7 +71,7 @@ export const TableWord = ({ category }) => {
         <TableHead>
           <TableRow>
             <TableCell>Palabra</TableCell>
-            <TableCell>Categoria</TableCell>
+            <TableCell>Categoría</TableCell>
             <TableCell>Imagén</TableCell>
             <TableCell>Audio</TableCell>
             <TableCell>Acciones</TableCell>

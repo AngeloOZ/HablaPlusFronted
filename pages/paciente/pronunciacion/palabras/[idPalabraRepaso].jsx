@@ -192,7 +192,7 @@ export const getServerSideProps = async ({ req, params }) => {
   } catch (error) {
     return {
       redirect: {
-        destination: "/paciente/categorias",
+        destination: "/paciente/pronunciacion",
         permanent: false,
       },
     };

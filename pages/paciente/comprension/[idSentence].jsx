@@ -187,7 +187,7 @@ const PageIdSentence = () => {
       )}
       {modalState.failed && (
         <ModalFailed
-          textBody={"Lo siento, te equivocaste"}
+          textBody={"Lo siento, te has equivocado"}
           textButton="Siguiente"
           onClick={handleClickNext}
         />

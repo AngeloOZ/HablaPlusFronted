@@ -26,8 +26,8 @@ export const GridTableCategories = ({ categories, setOpen, open }) => {
 
   const handleDeleteCategory = async (category) => {
     const result = await SweetAlert.deleteConfirm({
-      title: `Está seguro de eliminar la cetegoria: ${category.description}`,
-      text: "Si elimina la categoria se eliminaran todas las palabras asociadas a esta categoría",
+      title: `Está seguro de eliminar la categoría: ${category.description}`,
+      text: "Si elimina la categoría se eliminarán todas las palabras asociadas a esta categoría",
     });
 
     if (result.isConfirmed) {

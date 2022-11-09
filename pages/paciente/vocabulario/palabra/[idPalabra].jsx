@@ -118,7 +118,7 @@ const PagePalabraDinamic = ({ words, listWordsLearned }) => {
               className={css.buttonNext}
               onClickC={handleClickFinish}
             >
-              Finalizar seccion
+              Finalizar sección
             </ButtonPatient>
           )}
         </Box>
@@ -137,7 +137,7 @@ export const getServerSideProps = async ({ req, params }) => {
 
     const idWord = params.idPalabra;
     const { data } = await axios.get(`/word/unique/${idWord}`);
-    const { data: listWordsLearned } = await axios.get(`/word_learned`);
+    const { data: listWordsLearned } = await axios.get(`/word_learned/user`);
     const words = data.data;
     return {
       props: {
@@ -149,7 +149,7 @@ export const getServerSideProps = async ({ req, params }) => {
     console.log(error);
     return {
       redirect: {
-        destination: "/paciente/pronunciacion",
+        destination: "/paciente/vocabulario",
         permanent: false,
       },
     };

@@ -59,7 +59,7 @@ export const ContenedorInputEdit = ({
       setListWords([]);
       setListWordsFilter([]);
     } else {
-      setMessageWords("Seleccione una categoria");
+      setMessageWords("Seleccione una categoría");
       setListWords([]);
       setListWordsFilter([]);
     }
@@ -127,7 +127,7 @@ export const ContenedorInputEdit = ({
               onChange={handleChangeCategory}
             >
               <MenuItem value="" selected disabled>
-                Escoja una categoria
+                Escoja una categoría
               </MenuItem>
               {categories.map((cat) => (
                 <MenuItem value={cat.id_category} key={cat.id_category}>
@@ -170,7 +170,7 @@ export const ContenedorInputEdit = ({
             fullWidth
             required
             {...register("sentence", {
-              required: "La oración debe ser necesaria",
+              required: "La oración es necesaria",
             })}
             error={!!errors.sentence}
             helperText={errors.sentence?.message}

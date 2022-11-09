@@ -26,7 +26,7 @@ const ElegitAvatarPage = ({ avatars }) => {
   return (
     <PatientLayout title="Elegir Avatar - Habla+">
       <div className={css.contenedorMain}>
-        <Typography className={css.title}>Elege tu avatar</Typography>
+        <Typography className={css.title}>Elige tu avatar</Typography>
         <Box component={"div"} className={css.contenedorAvatar}>
           <Avatar
             src={avatar1.url}

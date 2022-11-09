@@ -59,7 +59,7 @@ export const FormEditarPerfil = () => {
             required: "Los nombres de usuario es requerido",
             pattern: {
               value: /^[A-Za-zñÑáéíóúÁÉÍÓÚ \s]+$/i,
-              message: "Solo es permitido letras sin carácteres especiales",
+              message: "Solo es permitido letras sin caracteres especiales",
             },
           }),
         }}
@@ -74,7 +74,7 @@ export const FormEditarPerfil = () => {
             required: "Los apellidos de usuario es requerido",
             pattern: {
               value: /^[[A-Za-zñÑáéíóúÁÉÍÓÚ \s]+$/i,
-              message: "Solo es permitido letras sin carácteres especiales",
+              message: "Solo es permitido letras sin caracteres especiales",
             },
           }),
         }}
@@ -90,7 +90,7 @@ export const FormEditarPerfil = () => {
             required: "La edad del usuario es requerido",
             pattern: {
               value: /^[0-9]+$/i,
-              message: "Solo es permitido valores númericos",
+              message: "Solo es permitido valores numéricos",
             },
           }),
         }}

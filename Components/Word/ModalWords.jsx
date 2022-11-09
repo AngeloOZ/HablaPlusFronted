@@ -146,7 +146,7 @@ export const ModalWords = ({
                     required: "El nombre de la palabra es requerido",
                     pattern: {
                       value: /^[A-Za-zñ ,.;áéíóú \ *]+$/i,
-                      message: "No se permiten número o caracteres especiales ",
+                      message: "No se permiten números o caracteres especiales ",
                     },
                   })}
                   error={!!errors.description}

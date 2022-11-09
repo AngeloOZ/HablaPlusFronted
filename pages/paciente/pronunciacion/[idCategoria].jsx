@@ -15,7 +15,7 @@ const PageCategoriaDinamic = ({ category, word }) => {
     } else {
       SweetAlert.error({
         title: "Oops...",
-        text: "No hay palabras registradas en esta categoria",
+        text: "No hay palabras registradas en esta categoría",
         onClose: () => {
           router.push("/paciente/pronunciacion");
         },
