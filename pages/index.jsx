@@ -19,6 +19,7 @@ export default function Home() {
   return (
     <LoginLayout>
       <Box
+        id="btton"
         component={"img"}
         src={`${process.env.NEXT_PUBLIC_URL}img/logo.png`}
         className={`${css.logoCenter} ${

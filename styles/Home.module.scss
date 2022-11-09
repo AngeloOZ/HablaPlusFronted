@@ -29,13 +29,15 @@
     flex-direction: column;
     z-index: 100;
     .logoCenter {
+      position: absolute;
       width: 450px;
+      top: 45%;
+      transform: translate(-50%);
       &.init {
         transform: scale(0);
         animation: zoom 1.2s ease-in both 0.2s;
       }
       &.startAnimation {
-        transform: translate(0px, 0px);
         animation: startAnimationA 2.5s ease both;
       }
     }
@@ -81,11 +83,15 @@
 
 @keyframes startAnimationA {
   0% {
-    transform: translate(0px, 0px);
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%);
   }
   100% {
     width: 209px;
-    transform: translate(564px, -271px);
+    top: 20px;
+    left: calc(100% - 229px);
+    transform: translate(0px, 0px);
   }
 }
 
