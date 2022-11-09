@@ -110,7 +110,7 @@ const PagePalabraDinamic = ({ words, listWordsLearned }) => {
               className={css.buttonNext}
               onClickC={handleClickNext}
             >
-              Sigueinte palabra
+              Siguiente palabra
             </ButtonPatient>
           )}
           {isPlayed && !nextWord && (
