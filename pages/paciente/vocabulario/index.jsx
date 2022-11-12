@@ -76,10 +76,13 @@ const PagePacienteCategoria = ({ categories }) => {
 
 export default PagePacienteCategoria;
 
-export const getServerSideProps = async (ctx) => {
+export const getServerSideProps = async ({ req }) => {
   let categories = [];
   try {
+    const { SESSION_ID } = req.cookies;
     axios.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
+    axios.defaults.headers.common["Authorization"] = `Bearer ${SESSION_ID}`;
+
     const { data } = await axios.get("/category");
     categories = data.data;
     return {
