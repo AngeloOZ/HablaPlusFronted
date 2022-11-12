@@ -53,10 +53,13 @@ const PagePalabras = ({ categories }) => {
 
 export default PagePalabras;
 
-export const getServerSideProps = async (ctx) => {
+export const getServerSideProps = async ({req}) => {
   let categories = [];
   try {
     axios.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
+    const { SESSION_ID } = req.cookies;
+    axios.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
+    axios.defaults.headers.common["Authorization"] = `Bearer ${SESSION_ID}`;
     const { data } = await axios.get("/category");
     categories = data.data;
     return {
