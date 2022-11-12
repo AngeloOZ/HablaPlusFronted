@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -13,6 +13,7 @@ import logo from "../../public/img/logo.png";
 import { SweetAlert } from "../../helpers";
 
 const LoginPage = () => {
+  const [sendRequest, setsendRequest] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -20,12 +21,13 @@ const LoginPage = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const { loginUser} = useContext(AuthContext);
+  const { loginUser } = useContext(AuthContext);
 
   const handleLoginUser = async (user) => {
+    setsendRequest(true);
     const login = await loginUser(user);
-
     if (login.hasError) {
+      setsendRequest(false);
       console.error(login);
       reset();
       return SweetAlert.error({
@@ -78,7 +80,11 @@ const LoginPage = () => {
               errors={!!errors.password}
               helperText={errors.password?.message}
             />
-            <ButtonPatient className={css.buttonLogin} type="submit">
+            <ButtonPatient
+              className={css.buttonLogin}
+              type="submit"
+              disabled={sendRequest}
+            >
               Iniciar sesión
             </ButtonPatient>
           </form>

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -13,6 +13,7 @@ import css from "../../styles/Auth.patient.module.scss";
 import logo from "../../public/img/logo.png";
 
 const RegisterPage = () => {
+  const [sendRequest, setSendRequest] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -23,8 +24,10 @@ const RegisterPage = () => {
   const { registerUser } = useContext(AuthContext);
 
   const handleRegisterUser = async (user) => {
+    setSendRequest(true);
     const register = await registerUser(user);
     if (register.hasError) {
+      setSendRequest(false);
       console.error(register);
       reset();
       return SweetAlert.error({
@@ -118,7 +121,11 @@ const RegisterPage = () => {
               errors={!!errors.password}
               helperText={errors.password?.message}
             />
-            <ButtonPatient className={css.buttonLogin} type="submit">
+            <ButtonPatient
+              className={css.buttonLogin}
+              type="submit"
+              disabled={sendRequest}
+            >
               Crear cuenta
             </ButtonPatient>
           </form>

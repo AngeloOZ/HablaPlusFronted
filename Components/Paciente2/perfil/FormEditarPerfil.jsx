@@ -40,9 +40,9 @@ export const FormEditarPerfil = () => {
         value={userAuth.username}
         register={{
           ...register("username", {
-            required: "Los apellidos de usuario es requerido",
+            required: "El nombre de usuario es requerido",
             pattern: {
-              value: /^[A-Za-z0-9]+$/i,
+              value: /^[A-Za-zñÑáéíóúÁÉÍÓÚ \s]+$/i,
               message: "Solo es permitido caracteres de la a-z y números",
             },
           }),

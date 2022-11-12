@@ -54,7 +54,6 @@ export const useSentencesReview = () => {
             text: "La oración se eliminó correctamente"
          })
       } catch (error) {
-         resetForm();
          console.error(error);
          SweetAlert.error({
             title: "Oops...",

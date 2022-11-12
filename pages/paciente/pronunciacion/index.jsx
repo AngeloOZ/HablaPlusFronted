@@ -65,7 +65,7 @@ const PagePacienteCategoria = ({ categories }) => {
             <ButtonsCategorias
               key={cat.id_category}
               category={cat}
-              image={cat.icon}
+              image={cat.icon2}
             />
           ))}
         </Box>

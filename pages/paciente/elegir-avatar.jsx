@@ -20,7 +20,6 @@ const ElegitAvatarPage = ({ avatars }) => {
 
   const handleClickAceptar = async () => {
     const result = await updateAvatar(selectAvatar.id_user_avatar);
-    console.log(result);
   };
 
   return (

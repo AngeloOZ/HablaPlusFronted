@@ -72,7 +72,6 @@ export const AuthProvider = ({ children }) => {
 
   const registerUser = async (body) => {
     try {
-      console.log(body)
       const { data : user } = await axios.post("/auth/register", body);
       const token = user.token;
       delete user.token;

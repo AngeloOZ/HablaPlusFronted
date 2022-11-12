@@ -10,9 +10,13 @@ import {
 import { ExpandMore } from "@mui/icons-material";
 import { AdminLayouts } from "../../Layouts";
 import { ModalContext } from "../../Context";
+import { ModaUsuarios, TablaUsuarios, useGetUser } from "../../Components";
 
 const PageAdminUsuarios = () => {
-  const { toogleModalState } = useContext(ModalContext);
+  const { toogleModalState, openModal, editModal, toogleIsEdit, currentData } =
+    useContext(ModalContext);
+  const { isLoading: isLoading1, users: users1 } = useGetUser(1);
+  const { isLoading: isLoading2, users: users2 } = useGetUser(2);
   return (
     <AdminLayouts titlePage={"Usuarios"}>
       <Box
@@ -33,7 +37,7 @@ const PageAdminUsuarios = () => {
           <Typography textTransform={"capitalize"}>Administrativos</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {/* <TableWord category={category} /> */}
+          <TablaUsuarios isLoading={isLoading1} usuarios={users1} />
         </AccordionDetails>
       </Accordion>
       {/* Acordion pacientes */}
@@ -45,9 +49,24 @@ const PageAdminUsuarios = () => {
           <Typography textTransform={"capitalize"}>Pacientes</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {/* <TableWord category={category} /> */}
+          <TablaUsuarios isLoading={isLoading2} usuarios={users2} />
         </AccordionDetails>
       </Accordion>
+
+      {editModal ? (
+        <ModaUsuarios
+          open={openModal}
+          setOpen={toogleModalState}
+          isEdit={editModal}
+          setIsEdit={toogleIsEdit}
+          initDataForm={currentData}
+        />
+      ) : (
+        <ModaUsuarios
+          open={openModal}
+          setOpen={toogleModalState}
+        />
+      )}
     </AdminLayouts>
   );
 };
