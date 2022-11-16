@@ -25,9 +25,10 @@ export const useUpdateAvatar = (redirect = true) => {
             return true;
         } catch (error) {
             console.error(error);
-            await SweetAlert.error({
+            await SweetAlert.success({
+                icon: "info",
                 title: "Oops...",
-                text: "Hubo un error al guardar tu avatar o es posible que ya lo tengas, intentelo de nuevo"
+                text: "El avatar de esta sección ya está desbloqueado"
             })
             return false;
         }
