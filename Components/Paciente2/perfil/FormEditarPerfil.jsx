@@ -42,7 +42,7 @@ export const FormEditarPerfil = () => {
           ...register("username", {
             required: "El nombre de usuario es requerido",
             pattern: {
-              value: /^[A-Za-zñÑáéíóúÁÉÍÓÚ \s]+$/i,
+              value: /^[A-Za-zñÑáéíóúÁÉÍÓÚ0-9 \s]+$/i,
               message: "Solo es permitido caracteres de la a-z y números",
             },
           }),

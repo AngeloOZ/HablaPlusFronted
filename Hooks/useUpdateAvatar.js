@@ -30,6 +30,7 @@ export const useUpdateAvatar = (redirect = true) => {
                 title: "Oops...",
                 text: "El avatar de esta sección ya está desbloqueado"
             })
+            router.push('/paciente');
             return false;
         }
     }
