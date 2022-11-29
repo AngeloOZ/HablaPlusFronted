@@ -30,6 +30,7 @@ const PagePalabraDinamic = ({ words }) => {
   });
   const [textNextButton, setTextNextButton] = useState("");
   const reproductoRef = useRef(null);
+  
 
   useEffect(() => {
     if (isEndRecognition) {
@@ -45,6 +46,8 @@ const PagePalabraDinamic = ({ words }) => {
 
   const verifyRecordWord = () => {
     const currentWordB = word;
+    console.log("currentWordB: "+currentWordB);
+    console.log("recognizedText: "+recognizedText);
 
     if (currentWordB.length === recognizedText.length) {
       if (currentWordB === recognizedText) {
@@ -82,7 +85,11 @@ const PagePalabraDinamic = ({ words }) => {
   };
 
   const handleClickPlay = () => {
-    reproductoRef.current.play();
+    try {
+      reproductoRef.current.play();
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   const handleClickRecord = () => {
@@ -128,6 +135,7 @@ const PagePalabraDinamic = ({ words }) => {
       disableUrlLogo={true}
     >
       <audio
+        id="reproductorID"
         src={currentWord.audio}
         ref={reproductoRef}
         style={{ display: "none" }}
@@ -139,6 +147,7 @@ const PagePalabraDinamic = ({ words }) => {
             <Typography
               component="h1"
               className={css.textWordRed}
+              fontSize={word.length > 7 ? 45 : 60}
               dangerouslySetInnerHTML={{ __html: currentWord.pronunciation }}
             ></Typography>
             <ButtonBase className={css.buttonPlay} onClick={handleClickPlay}>

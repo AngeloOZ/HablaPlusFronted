@@ -19,7 +19,7 @@ export const useSpeechRecognition = () => {
          const SpeechRecognition = window.webkitSpeechRecognition;
          setRecognition(new SpeechRecognition());
 
-         recognition.lang = 'es-EC';
+         recognition.lang = 'es-ES';
          recognition.continuous = false;
          recognition.interimResults = true;
       } catch (error) {

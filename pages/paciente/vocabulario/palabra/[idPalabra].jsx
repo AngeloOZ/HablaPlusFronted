@@ -36,6 +36,7 @@ const PagePalabraDinamic = ({ words, listWordsLearned }) => {
 
         if (setting.repasado == setting.total) {
           await addAvatar(4);
+          localStorage.removeItem("settingRepaso");
         }
       } catch (error) {
         console.log(error);
@@ -44,7 +45,11 @@ const PagePalabraDinamic = ({ words, listWordsLearned }) => {
   }
 
   const handleClickPlay = () => {
-    reproductoRef.current.play();
+    try {
+      reproductoRef.current.play();
+    } catch (error) {
+      console.info("ERROOOOOOOO");
+    }
   };
 
   const handleClickNext = () => {
@@ -91,7 +96,11 @@ const PagePalabraDinamic = ({ words, listWordsLearned }) => {
         <Box component={"div"} className={css.subContenedorWord}>
           <Pictograma src={currtentWord.icon} />
           <Box component={"div"} className={css.contenedorText}>
-            <Typography component="h1" className={css.textWord}>
+            <Typography
+              component="h1"
+              fontSize={word.length > 7 ? 45 : 60}
+              className={css.textWord}
+            >
               {word}
             </Typography>
             <ButtonBase className={css.buttonPlay} onClick={handleClickPlay}>
