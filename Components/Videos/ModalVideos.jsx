@@ -51,11 +51,11 @@ export const ModalVideos = ({
     }
   }, [initDataForm]);
 
-  const handleSubmitWord = (data) => {
+  const handleSubmitWord = async (data) => {
     if (isEdit) {
-      updateVideo(data, handleCancel);
+      await updateVideo(data, handleCancel);
     } else {
-      addVideo(data);
+      await addVideo(data);
     }
     handleCancel();
   };

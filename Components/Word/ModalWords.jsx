@@ -70,7 +70,7 @@ export const ModalWords = ({
     }
   }, [initDataForm]);
 
-  const handleSubmitWord = (data) => {
+  const handleSubmitWord = async (data) => {
     if (choseCategory.length == 0) {
       setSelectError(true);
       setSelectErrorMessage("Debe seleccionar la categoria");
@@ -85,14 +85,14 @@ export const ModalWords = ({
       } else if (editAudio && audioWordFile) {
         data.audioFile = audioWordFile;
       }
-      updateWord(data, handleCancel);
+      await updateWord(data, handleCancel);
     } else {
       if (!audioWordFile) {
         setErrorAudioFile(true);
         return;
       }
       data.audioFile = audioWordFile;
-      addWord(data);
+      await addWord(data);
     }
     handleCancel();
   };

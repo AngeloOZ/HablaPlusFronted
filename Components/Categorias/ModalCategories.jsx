@@ -57,14 +57,14 @@ export const ModalCategories = ({
     }
   }, [initDataForm, setValue, reset]);
 
-  const handleSubmitCategory = (data) => {
+   const handleSubmitCategory = async (data) => {
     if (isEdit) {
-      updateCategory(data, handleCancel);
+      await updateCategory(data, handleCancel);
       setEditFile(false);
       setEditFile2(false);
       setIsEdit(false);
     } else {
-      addCategory(data);
+       await addCategory(data);
     }
     reset();
     setOpen(false);
