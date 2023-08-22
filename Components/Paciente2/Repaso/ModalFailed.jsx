@@ -57,7 +57,7 @@ export const ModalFailed = ({
               {textBody}
             </Typography>
             <Box component={"div"} className={css.contenedorImage}>
-              <Image src={gif} />
+              <Image src={gif} alt="img" />
             </Box>
             <Box className={css.contenedorButton}>
               <ButtonPatient

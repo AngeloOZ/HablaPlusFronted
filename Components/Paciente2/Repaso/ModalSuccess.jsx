@@ -49,7 +49,7 @@ export const ModalSuccess = ({ textButton, handleClickNext = () => {} }) => {
               ¡Felicidades!
             </Typography>
             <Box component={"div"} className={css.contenedorImage}>
-              <Image src={gif} />
+              <Image src={gif} alt="img" />
             </Box>
             <Box className={css.contenedorButton}>
               <ButtonPatient

@@ -46,7 +46,7 @@ const LoginPage = () => {
     <LoginLayout title="Iniciar sesión - Habla+">
       <Box className={css.contenedorMain}>
         <Box className={css.logoLogin}>
-          <Image src={logo} />
+          <Image src={logo} alt="img"/>
         </Box>
         <Box component={"div"} className={css.contenedorLogin}>
           <form onSubmit={handleSubmit(handleLoginUser)}>

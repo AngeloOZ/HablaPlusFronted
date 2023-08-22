@@ -38,6 +38,7 @@ const PageIndexComprension = () => {
         console.log(error);
         router.push("/paciente");
       });
+      // eslint-disable-next-line
   }, []);
 
   const redirectHome = () => {
